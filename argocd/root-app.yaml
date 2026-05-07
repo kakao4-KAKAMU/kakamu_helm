@@ -1,1 +1,18 @@
-
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kakamu-root
+  namespace: argo
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
+    targetRevision: main
+    path: argocd/apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
