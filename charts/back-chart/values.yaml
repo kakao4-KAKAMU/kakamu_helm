@@ -3,3 +3,5 @@ image:
   tag: "latest"
   ifPullPolicy: IfNotPresent
 
+namespace: dev-back
+
