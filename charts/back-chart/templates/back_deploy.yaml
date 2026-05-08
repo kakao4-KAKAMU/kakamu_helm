@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: dev-back-deploy
+  namespace: dev-back
+  Labels:
+    app : filma-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filma-back
+  template:
+    metadata:
+      labes:
+        app: filma-back
+    spec:
+      containers:
+      - name: filma-back
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 8000 # fastapi 기본 포트
+

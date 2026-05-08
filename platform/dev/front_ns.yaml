@@ -4,4 +4,4 @@ metadata:
   name: dev-front
   labels:
     env: dev
-    tier: frontend
+    component: frontend

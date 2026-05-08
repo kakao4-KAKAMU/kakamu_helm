@@ -4,4 +4,4 @@ metadata:
   name: dev-back
   labels:
     env: dev
-    tier: backend
+    component: backend
