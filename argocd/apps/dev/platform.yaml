@@ -13,7 +13,7 @@ spec:
     path: platform/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: dev-back
+    namespace: dummy_back # 더미 네임스페이스 명
   syncPolicy:
     automated:
       prune: true

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-back-quota
+  namespace: dev-back
+  labels:
+    env: dev
+spec:
+  hard:
+    pods: "2" # 최대 2개 pod
+    requests.cpu: "500m" # 0.5cpu
+    requests.memory: "512Mi" # 512Mi
+    limits.cpu: "1" # 최대 1cpu
+    limits.memory: "1Gi" # 최대 1Gi
