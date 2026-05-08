@@ -1,10 +1,57 @@
 postgresql:
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 18.3.0-debian-12-r13 # 버전 확인하기 수정 필요. 18.3
+  architecture: replication
+
   auth:
-    username: #데이터베이스 유저 이름
-    password: #데이터베이스 비밀번호
-    database: #데이터베이스 이름
+    username: kakamu
+    database: kakamu
+    existingSecret: postgresql-secret # db 비밀번호 저장된 secret
+    secretKeys:
+      userPasswordKey: password  # primary 키
+      replicationPasswordKey: replication-password # replica 키
 
   primary:
+    nodeSelector:
+      kubernetes.io/hostname: master1
+    tolerations: # 컨트롤 플레인에 배치 하기 위한 톨러레이션
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+
     persistence:
       enabled: true
+      storageClass: local-storage
       size: 20Gi
+      selector:
+        matchLabels:
+          role: primary
+
+    resources: # 리소스 확인 후 조정 필요
+      requests:
+        cpu: "1"
+        memory: "2Gi"
+      limits: {}
+
+
+  readReplicas:
+    replicaCount: 1
+
+    nodeSelector:
+      kubernetes.io/hostname: worker3
+
+    persistence:
+      enabled: true
+      storageClass: local-storage
+      size: 20Gi
+      selector:
+        matchLabels:
+          role: replica
+
+    resources: # 리소스 확인 후 조정 필요
+      requests:
+        cpu: "300m"
+        memory: "512Mi"
+      limits: {}
