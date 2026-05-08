@@ -2,7 +2,7 @@ postgresql:
   image:
     registry: docker.io
     repository: bitnami/postgresql
-    tag: 18 # 버전 확인하기 수정 필요. 18.3
+    tag: 16.4.0-debian-12-r14 # 버전 확인하기 수정 필요. 18.3
   architecture: replication
 
   auth:
