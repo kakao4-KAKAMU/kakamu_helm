@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: image-registry-ingress
+  namespace: data
+
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10g"
+
+spec:
+  ingressClassName: nginx
+
+  rules:
+  - host: registry.kakamu.com
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: image-registry
+              port:
+                number: 5000

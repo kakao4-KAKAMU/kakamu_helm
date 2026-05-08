@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: registry-pvc
+  namespace: data
+spec:
+  accessModes:
+    - ReadWriteOnce
+
+  storageClassName: local-storage
+
+  resources:
+    requests:
+      storage: 40Gi # 이미지 저장소 크기
