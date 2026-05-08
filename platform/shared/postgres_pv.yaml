@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pg-pv-primary # primary 전용 pv
+  labels:
+    env: shared
+spec:
+  capacity:
+    storage: 20Gi 
+    accessModes:
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    local:
+      path: "/mnt/data/postgres/primary" # 실제 데이터가 저장되는 로컬 경로
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - master1 # 컨트롤 플레인
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pg-pv-replica-1 # replica 전용 pv
+  labels:
+    env: shared
+spec:
+  capacity:
+    storage: 20Gi
+    accessModes:
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    local:
+      path: "/mnt/data/postgres/replica-1"
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - worker3

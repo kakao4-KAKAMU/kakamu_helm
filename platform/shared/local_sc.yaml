@@ -1,0 +1,6 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner # 관리자가 직접 pv 생성 후 연결
+volumeBindingMode: WaitForFirstConsumer
