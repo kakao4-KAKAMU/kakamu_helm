@@ -4,6 +4,7 @@ metadata:
   name: pg-pv-primary # primary 전용 pv
   labels:
     env: shared
+    role: primary
 spec:
   capacity:
     storage: "20Gi" 
@@ -28,6 +29,7 @@ metadata:
   name: pg-pv-replica-1 # replica 전용 pv
   labels:
     env: shared
+    role: replica
 spec:
   capacity:
     storage: "20Gi"
