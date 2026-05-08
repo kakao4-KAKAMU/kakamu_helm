@@ -2,7 +2,8 @@ postgresql:
   image:
     registry: docker.io
     repository: bitnami/postgresql
-    tag: 16.4.0-debian-12-r14 # 버전 확인하기 수정 필요. 18.3
+    tag: latest # latest 태그지만 digest(sha)으로 고정, 버전 확인 결과 18.3
+    digest: sha256:8ee67b02aa9d8d0932b7215b6b0cdd418e87caa324a34ebefef1742737aa2400 
   architecture: replication
 
   auth:
