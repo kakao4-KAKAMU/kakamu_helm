@@ -1,1 +1,6 @@
+image:
+  repository: topawa/filma-back
+  tag: "1.0"
+  ifPullPolicy: IfNotPresent
 
+namespace: dev-back
