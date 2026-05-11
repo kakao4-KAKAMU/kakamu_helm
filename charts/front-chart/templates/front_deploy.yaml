@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-front-deploy
+  labels:
+    app : dev-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filma-front
+  template:
+    metadata:
+      labels:
+        app: filma-front
+    spec:
+      containers:
+      - name: filma-front
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 3000 # react 기본 포트
+

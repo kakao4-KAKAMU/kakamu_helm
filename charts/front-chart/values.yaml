@@ -1,0 +1,7 @@
+image:
+  repository: topawa/filma-frontend
+  tag: "latest"
+  ifPullPolicy: IfNotPresent
+
+namespace: dev-front
+
