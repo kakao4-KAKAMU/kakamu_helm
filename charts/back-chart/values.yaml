@@ -1,5 +1,5 @@
 image:
-  repository: topawa/filma-back
+  repository: topawa/filma-backend
   tag: "latest"
   ifPullPolicy: IfNotPresent
 
