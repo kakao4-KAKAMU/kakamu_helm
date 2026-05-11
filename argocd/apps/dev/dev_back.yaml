@@ -9,6 +9,9 @@ spec:
     repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
     targetRevision: main
     path: charts/back-chart
+    helm:
+      valueFiles:
+        - ../../environments/dev/back/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: dev-back
