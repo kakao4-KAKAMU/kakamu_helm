@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kakamu-dev-front
+  namespace: argo
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
+    targetRevision: main
+    path: charts/front-chart
+    helm:
+      valueFiles:
+        - ../../environments/dev/front/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-front # 이 애플리케이션 관련 리소스가 생성될 네임스페이스
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true  # 네임스페이스 없으면 자동 생성
+      - Replace=true          # 꼬인 리소스 무조건 덮어쓰기
+      - Validate=false        # 스키마 검증 생략 (속도 향상 및 에러 방지)
