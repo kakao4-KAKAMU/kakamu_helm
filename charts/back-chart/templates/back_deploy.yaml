@@ -17,6 +17,23 @@ spec:
       containers:
       - name: filma-back
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        env:
+          - name: POSTGRES_SERVER # 데이터베이스 서비스 경로
+            value: "kakamu-data-postgresql-primary.data.svc.cluster.local"
+          - name: POSTGRES_PORT # 포트
+            value: "5432"
+          - name: POSTGRES_USER # db 유저명
+            value: "kakamu"
+          - name: POSTGRES_DB # 데이터베이스 이름
+            value: "kakamu"
+          - name: POSTGRES_PASSWORD # 비밀번호는 secret 리소스로 참조
+            valueFrom:
+              secretKeyRef:
+                name: postgresql-secret
+                key: password
+
+          - name: DATABASE_URL
+            value: "postgresql://$(POSTGRES_USER):$(POSRGRES_PASSWORD)@$(POSTGRES_SERVER):$(POSTGRES_PORT)/$(POSTGRES_DB)"
         ports:
         - containerPort: 8000 # fastapi 기본 포트
 
