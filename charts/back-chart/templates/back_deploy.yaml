@@ -36,7 +36,7 @@ spec:
             value: "redis://localhost:6379/0"
 
           - name: DATABASE_URL
-            value: "postgresql://$(POSTGRES_USER):$(POSRGRES_PASSWORD)@$(POSTGRES_SERVER):$(POSTGRES_PORT)/$(POSTGRES_DB)"
+            value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_SERVER):$(POSTGRES_PORT)/$(POSTGRES_DB)"
         ports:
         - containerPort: 8000 # fastapi 기본 포트
 
