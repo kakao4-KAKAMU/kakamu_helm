@@ -1,0 +1,26 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+
+metadata:
+  name: back-hpa
+
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: back-deploy # 타겟 deploy 이름
+
+  minReplicas: 1 # 최소 replicas 1개
+  maxReplicas: 3 # 최대 replicas 3개 , prod 환경에서는 고가용성 고려해서 설계
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu # cpu 리소스 수집
+        target:
+          type: Utilization
+          averageUtilization: 70 # 전체 Pod의 평균을 cpu 사용량 70% 유지
+
+  # cpu 사용량의 기준 : Pod CPU 사용량/CPU 요청량 = 70% 유지
+  # 요청 CPU가 500m 이면 pod의 실제 CPU 사용량이 350m 이상이면 pod 1개 추가
+  # pod가 2개 실행중인데, 1번은 250m, 2번은 500m 사용중이면 전체 CPU 평균이 75% 으로 70% 이상 > pod 1개 더 실행.
