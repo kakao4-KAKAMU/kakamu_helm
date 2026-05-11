@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dev-back-deploy
+  name: back-deploy
   labels:
     app : filma-back
 spec:
