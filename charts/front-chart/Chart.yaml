@@ -1,1 +1,9 @@
+apiVersion: v3
+name: kakamu-front
+description: Helm chart for Kakamu frontend service
+type: application
+
+version: 0.1.0
+
+appVersion: "1.0.0"
 
