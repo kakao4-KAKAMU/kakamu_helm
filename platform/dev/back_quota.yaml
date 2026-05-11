@@ -7,8 +7,8 @@ metadata:
     env: dev
 spec:
   hard:
-    pods: "2" # 최대 2개 pod
-    requests.cpu: "500m" # 0.5cpu
-    requests.memory: "512Mi" # 512Mi
-    limits.cpu: "1" # 최대 1cpu
-    limits.memory: "1Gi" # 최대 1Gi
+    pods: "5" # 최대 5개 pod
+    requests.cpu: "1" # 0.5cpu
+    requests.memory: "1Gi" # 512Mi
+    limits.cpu: "2" # 최대 1cpu
+    limits.memory: "2Gi" # 최대 1Gi
