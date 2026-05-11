@@ -32,6 +32,9 @@ spec:
                 name: postgresql-secret
                 key: password
 
+          - name: REDIS_URL # 실제로 없는 주소, 나중에 redis 배포 후 맞게 수정
+            value: "redis://localhost:6379/0"
+
           - name: DATABASE_URL
             value: "postgresql://$(POSTGRES_USER):$(POSRGRES_PASSWORD)@$(POSTGRES_SERVER):$(POSTGRES_PORT)/$(POSTGRES_DB)"
         ports:
