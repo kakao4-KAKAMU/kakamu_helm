@@ -3,14 +3,16 @@ kind: Ingress
 metadata:
   name: back-ingress
     # 중요: 서브 경로를 사용할 때 경로 재작성 규칙
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2 # rewrite 사용
 spec:
   ingressClassName: nginx
   # 나중에 도메인 생기면   - host: 필드로 변경
   rules:
   - http:
       paths:
-      - path: /api
-        pathType: Prefix
+      - path: /api(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: back-service # 백엔드 서비스 이름 (clusterIP)
