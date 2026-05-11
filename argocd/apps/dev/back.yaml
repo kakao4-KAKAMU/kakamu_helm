@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kakamu-dev-back
+  namespace: dev-back
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
+    targetRevision: main
+    path: charts/back-chart
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-back # dev 환경 백엔드 네임스페이스
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
