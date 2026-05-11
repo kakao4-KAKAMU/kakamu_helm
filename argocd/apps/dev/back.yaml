@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: kakamu-dev-back
-  namespace: dev-back
+  namespace: argo
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:
