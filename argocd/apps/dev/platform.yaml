@@ -13,7 +13,7 @@ spec:
     path: platform/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: dummy_back # 더미 네임스페이스 명
+    namespace: argo # 실제 존재하는 네임스페이스, 리소스에 적용되는 건 metadata.namespace로 적용됨
   syncPolicy:
     automated:
       prune: true
