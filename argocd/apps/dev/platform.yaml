@@ -9,7 +9,7 @@ spec:
   project: dev # project dev로 변경
   source:
     repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
-    targetRevision: main
+    targetRevision: dev # dev 브랜치로 변경
     path: platform/dev
   destination:
     server: https://kubernetes.default.svc
