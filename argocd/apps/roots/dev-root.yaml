@@ -7,7 +7,7 @@ spec:
   project: dev # dev 프로젝트로 적용
   source:
     repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
-    targetRevision: main # main 브랜치 나중에 dev 브랜치로 변경 필요
+    targetRevision: dev #  dev 브랜치 기준
     path: argocd/apps/dev # dev 관련 애플리케이션만 배포
     directory:
       recurse: true # 하위 디렉토리 탐색
