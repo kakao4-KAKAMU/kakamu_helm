@@ -7,8 +7,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
-    targetRevision: main
-    path: argocd/apps
+    targetRevision: main # main 브랜치 (prod 환경)
+    path: argocd/apps/prod
     directory:
       recurse: true # 하위 디렉토리 탐색
   destination:
