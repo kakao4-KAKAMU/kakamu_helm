@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:
-  project: default
+  project: shared
   source:
     repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
     targetRevision: main
