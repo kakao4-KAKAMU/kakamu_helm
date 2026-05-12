@@ -4,7 +4,7 @@ metadata:
   name: kakamu-root
   namespace: argo
 spec:
-  project: default
+  project: default # 나중에 prod project 생성 후 적용 필요
   source:
     repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
     targetRevision: main # main 브랜치 (prod 환경)
@@ -14,7 +14,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: argo
-#  syncPolicy:
-#    automated:
-#      prune: true
-#      selfHeal: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
