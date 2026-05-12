@@ -37,6 +37,19 @@ spec:
 
           - name: DATABASE_URL
             value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_SERVER):$(POSTGRES_PORT)/$(POSTGRES_DB)"
+          - name: FIREBASE_CONFIG_PATH # firebase 키 환경 변수
+            value: "/app/auth/firebase-key.json"
+        volumeMounts:
+          - name: firebase-key-volume
+            mountPath: /app/auth
+            readOnly: true
+
         ports:
-        - containerPort: 8000 # fastapi 기본 포트
+          - containerPort: 8000 # fastapi 기본 포트
+
+      volumes:
+        - name: firebase-key-volume
+          secret:
+            secretName: firebase-secret # 생성된 실제 시크릿 이름
+
 
