@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: shared
+  namespace: argo
+spec:
+  description: Shared platform project
+  sourceRepos:
+    - https://github.com/kakao4-KAKAMU/kakamu_helm.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: argo
+    - server: https://kubernetes.default.svc
+      namespace: data
+    - server: https://kubernetes.default.svc
+      namespace: monitoring
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
