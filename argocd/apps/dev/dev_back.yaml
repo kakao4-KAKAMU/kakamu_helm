@@ -4,7 +4,7 @@ metadata:
   name: kakamu-dev-back
   namespace: argo # 설치하신 네임스페이스가 argo이므로 반드시 여기!
 spec:
-  project: default
+  project: dev # project dev로 변경
   source:
     repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
     targetRevision: main
