@@ -13,7 +13,7 @@ spec:
     path: platform/shared
   destination:
     server: https://kubernetes.default.svc
-    namespace: dummy_data # 더미 네임스페이스 명
+    namespace: argo
   syncPolicy:
     automated:
       prune: true
