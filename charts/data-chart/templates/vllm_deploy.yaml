@@ -42,6 +42,8 @@ spec:
             - "0.9"
             - "--max-model-len"
             - "32768"
+            - "--kv-cache-memory-bytes"
+            - "32768"
           ports:
             - containerPort: 8000 # 컨테이너 포트
 
