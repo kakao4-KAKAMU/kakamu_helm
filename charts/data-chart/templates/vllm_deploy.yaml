@@ -40,6 +40,8 @@ spec:
             - "1"
             - "--gpu-memory-utilization"
             - "0.9"
+            - "--max-model-len"
+            - "32768"
           ports:
             - containerPort: 8000 # 컨테이너 포트
 
