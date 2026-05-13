@@ -52,6 +52,8 @@ spec:
             - "bitsandbytes"
             - "--attention-backend"
             - "FLASHINFER"
+            - "--attention-config.use_trtllm_attention"
+            - "0"
             # - "cyankiwi/gemma-4-E2B-it-AWQ-INT4" # 1. 모델 경로 변경 (positional argument)
             # - "--trust-remote-code"
             # - "--download-dir"
