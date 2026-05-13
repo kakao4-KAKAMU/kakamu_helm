@@ -41,9 +41,9 @@ spec:
             - "--gpu-memory-utilization"
             - "0.9"
             - "--max-model-len"
-            - "32768"
+            - "40K"
             - "--kv-cache-memory-bytes"
-            - "32768"
+            - "30K"
           ports:
             - containerPort: 8000 # 컨테이너 포트
 
