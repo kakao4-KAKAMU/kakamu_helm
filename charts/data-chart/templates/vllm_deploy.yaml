@@ -14,6 +14,8 @@ spec:
       labels:
         app: vllm
     spec:
+      strategy:
+        type: Recreate # 기존 pod 강제로 삭제
       runtimeClassName: nvidia # 사용할 GPU 명시
       nodeSelector:
         kubernetes.io/hostname: master1
@@ -32,7 +34,7 @@ spec:
                   key: readtoken
           args:
             - "--model"
-            - "Qwen/Qwen3.5-9B" # 사용할 모델 이름
+            - "Qwen/Qwen3.5-2B" # 사용할 모델 이름
             - "--trust-remote-code"
             - "--download-dir"
             - "/data"
@@ -97,7 +99,7 @@ spec:
             httpGet:
               path: /health
               port: 8000
-            failureThreshold: 60   # 30번 실패할 때까지 시도
+            failureThreshold: 100   # 100번 실패할 때까지 시도
             periodSeconds: 10 # 10초 마다 확인
       volumes:
       - name: model-volume
