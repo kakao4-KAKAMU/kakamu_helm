@@ -14,6 +14,7 @@ spec:
       labels:
         app: vllm
     spec:
+      runtimeClassName: nvidia # 사용할 GPU 명시
       nodeSelector:
         kubernetes.io/hostname: master1
       tolerations: # 컨트롤 플레인에 배치할 톨러레이션
