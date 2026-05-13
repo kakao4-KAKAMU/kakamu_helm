@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-deploy
+  labels:
+    app: vllm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vllm
+  template:
+    metadata:
+      labels:
+        app: vllm
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: master1
+      tolerations: # 컨트롤 플레인에 배치할 톨러레이션
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai:latest
+          env:
+            - name: HF_TOKEN # 환경 변수 이름 확인 필요, 안되면 HUGGING_FACE_HUB_TOKEN 으로 변경
+              valueFrom:
+                secretKeyRef:
+                  name: vllm-token
+                  key: readtoken
+          args:
+            - "--model"
+            - "google/gemma-4-E2B-it" # 사용할 모델 이름
+            - "--trust-remote-code"
+            - "--download-dir"
+            - "/data"
+            - "--tensor-parallel-size"
+            - "1"
+            - "--gpu-memory-utilization"
+            - "0.9"
+          ports:
+            - containerPort: 8000 # 컨테이너 포트
+
+          resources:
+            limits:
+              nvidia.com/gpu: "1" # gpu 1개
+              memory: "32Gi"
+              cpu: "8"
+            requests:
+              memory: "16Gi"
+              cpu: "4"
+          volumeMounts:
+            - name: model-volume
+              mountPath: /data
+      volumes:
+      - name: model-volume
+        persistentVolumeClaim:
+          claimName: vllm-model-pvc
