@@ -34,7 +34,6 @@ spec:
             - "--model"
             - "google/gemma-4-E2B-it" # 사용할 모델 이름
             - "--trust-remote-code"
-            - "--use-v2-block-manager" # 하드웨어 한계를 우회 (V1 엔진 비활성화, V0 엔진 활성화)
             - "--enforce-eager"          # CUDA Graph 캡처 시간을 아끼고 메모리 절약
             - "--download-dir"
             - "/data"
@@ -75,8 +74,8 @@ spec:
             httpGet:
               path: /health
               port: 8000
-            failureThreshold: 30   # 30번 실패할 때까지 시도
-            periodSeconds: 20
+            failureThreshold: 60   # 30번 실패할 때까지 시도
+            periodSeconds: 10 # 10초 마다 확인
       volumes:
       - name: model-volume
         persistentVolumeClaim:
