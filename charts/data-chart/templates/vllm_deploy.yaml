@@ -48,6 +48,24 @@ spec:
             - "2"
             - "--kv-cache-memory-bytes"
             - "2G"
+            - "--no-enable-chunked-prefill"
+#             - "cyankiwi/gemma-4-E2B-it-AWQ-INT4" # 1. 모델 경로 변경 (positional argument)
+#             - "--trust-remote-code"
+#             - "--download-dir"
+#             - "/data"
+#             - "--tensor-parallel-size"
+#             - "1"
+#             - "--quantization"                 # 2. 양자화 방식 명시
+#             - "awq"
+#             - "--gpu-memory-utilization"        # 3. 0.8 정도로 낮춰도 충분 (안정성 확보)
+#             - "0.8"
+#             - "--max-model-len"                 # 4. 8K(8192) 유지 또는 4096 권장
+#             - "4096"
+#             - "--max-num-batched-tokens"        # 5. 모델 체급에 맞춰 상향 가능
+#             - "4096"
+#             - "--max-num-seqs"                  # 6. 동시 처리 개수 상향 가능
+#             - "16"
+#             - "--enforce-eager"                 # 7. T4의 안정성을 위해 추가 권장
           ports:
             - containerPort: 8000 # 컨테이너 포트
 
