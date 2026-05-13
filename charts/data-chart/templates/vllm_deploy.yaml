@@ -32,7 +32,7 @@ spec:
                   key: readtoken
           args:
             - "--model"
-            - "google/gemma-4-E2B-it" # 사용할 모델 이름
+            - "Qwen/Qwen3.5-9B" # 사용할 모델 이름
             - "--trust-remote-code"
             - "--download-dir"
             - "/data"
