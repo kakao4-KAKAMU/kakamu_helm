@@ -34,6 +34,7 @@ spec:
             - "--model"
             - "google/gemma-4-E2B-it" # 사용할 모델 이름
             - "--trust-remote-code"
+            - "--use-v2-block-manager" # 하드웨어 한계를 우회 (V1 엔진 비활성화, V0 엔진 활성화)
             - "--download-dir"
             - "/data"
             - "--tensor-parallel-size"
