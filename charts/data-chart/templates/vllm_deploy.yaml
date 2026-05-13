@@ -34,7 +34,6 @@ spec:
             - "--model"
             - "google/gemma-4-E2B-it" # 사용할 모델 이름
             - "--trust-remote-code"
-            - "--enforce-eager"          # CUDA Graph 캡처 시간을 아끼고 메모리 절약
             - "--download-dir"
             - "/data"
             - "--tensor-parallel-size"
@@ -42,7 +41,13 @@ spec:
             - "--gpu-memory-utilization"
             - "0.9"
             - "--max-model-len"
-            - "4096"
+            - "8K"
+            - "--max-num-batched-tokens"
+            - "2K"
+            - "--max-num-seqs"
+            - "2"
+            - "--kv-cache-memory-bytes"
+            - "2GiB"
           ports:
             - containerPort: 8000 # 컨테이너 포트
 
