@@ -11,7 +11,7 @@ spec:
 
   source:
     repoURL: https://github.com/kubeflow/manifests.git
-    targetRevision: 26.03
+    targetRevision: "26.03"
     path: common/istio/istio-crds/base
 
   destination:
