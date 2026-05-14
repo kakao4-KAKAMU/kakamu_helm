@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kakamu-shared-platform
+  name: kubeflow
   namespace: argo
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
 spec:
-  project: shared
+  project: default #
   source:
     repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
-    targetRevision: main
-    path: platform/shared
+    targetRevision: feat/kubeflow
+    path: argocd/apps/kubeflow
+    directory:
+      recurse: true # 하위 디렉토리 탐색
   destination:
     server: https://kubernetes.default.svc
     namespace: argo

@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubeflow-dex
+  namespace: argo
+  annotations:
+    argocd.argoproj.io/sync-wave: "4" # 애플리케이션 생성 순서
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/kubeflow/manifests.git # kubeflow 공식 깃허브 주소
+    targetRevision: "26.03" # 태그
+    path: common/dex/overlays/oauth2-proxy
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: auth
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true

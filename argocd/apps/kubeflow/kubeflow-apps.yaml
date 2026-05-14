@@ -1,20 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kakamu-shared-platform
+  name: kubeflow-apps
   namespace: argo
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "10"
 spec:
-  project: shared
+  project: default
   source:
     repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
-    targetRevision: main
-    path: platform/shared
+    targetRevision: feat/kubeflow
+    path: argocd/apps/overlays/kubeflow-apps-http
   destination:
     server: https://kubernetes.default.svc
-    namespace: argo
+    namespace: kubeflow
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions: # kubeflow 네임스페이스 없으면 자동으로 생성
+      - CreateNamespace=true
