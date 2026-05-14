@@ -1,0 +1,56 @@
+# https 비활성화
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jupyter-web-app-deployment
+  namespace: kubeflow
+spec:
+  template:
+    spec:
+      containers:
+        - name: jupyter-web-app
+          env:
+            - name: APP_SECURE_COOKIES
+              value: "false"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tensorboards-web-app-deployment
+  namespace: kubeflow
+spec:
+  template:
+    spec:
+      containers:
+        - name: tensorboards-web-app
+          env:
+            - name: APP_SECURE_COOKIES
+              value: "false"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volumes-web-app-deployment
+  namespace: kubeflow
+spec:
+  template:
+    spec:
+      containers:
+        - name: volumes-web-app
+          env:
+            - name: APP_SECURE_COOKIES
+              value: "false"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: katib-ui
+  namespace: kubeflow
+spec:
+  template:
+    spec:
+      containers:
+        - name: katib-ui
+          env:
+            - name: APP_SECURE_COOKIES
+              value: "false"

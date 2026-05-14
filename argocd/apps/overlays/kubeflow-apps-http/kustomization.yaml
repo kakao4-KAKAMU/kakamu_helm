@@ -1,0 +1,43 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  # namespace
+  - https://github.com/kubeflow/manifests//common/kubeflow-namespace/base?ref=26.03
+
+  # istio resources
+  - https://github.com/kubeflow/manifests//common/istio/kubeflow-istio-resources/base?ref=26.03
+
+  # central dashboard
+  - https://github.com/kubeflow/manifests//applications/centraldashboard/upstream/overlays/oauth2-proxy?ref=26.03
+
+  # profiles
+  - https://github.com/kubeflow/manifests//applications/profiles/upstream/overlays/kubeflow?ref=26.03
+
+  # admission webhook
+  - https://github.com/kubeflow/manifests//applications/admission-webhook/upstream/overlays/cert-manager?ref=26.03
+
+  # notebook controller
+  - https://github.com/kubeflow/manifests//applications/jupyter/notebook-controller/upstream/overlays/kubeflow?ref=26.03
+
+  # jupyter web app
+  - https://github.com/kubeflow/manifests//applications/jupyter/jupyter-web-app/upstream/overlays/istio?ref=26.03
+
+  # tensorboard controller
+  - https://github.com/kubeflow/manifests//applications/tensorboard/tensorboard-controller/upstream/overlays/kubeflow?ref=26.03
+
+  # tensorboard web app
+  - https://github.com/kubeflow/manifests//applications/tensorboard/tensorboards-web-app/upstream/overlays/istio?ref=26.03
+
+  # volumes web app
+  - https://github.com/kubeflow/manifests//applications/volumes-web-app/upstream/overlays/istio?ref=26.03
+
+  # katib
+  - https://github.com/kubeflow/manifests//applications/katib/upstream/installs/katib-with-kubeflow?ref=26.03
+
+  # pipelines
+  - https://github.com/kubeflow/manifests//applications/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user?ref=26.03
+
+patches:
+  - path: patch-secure-cookies.yaml # http 적용
+  - path: patch-gpu-toleration.yaml # 톨러레이션 적용 (gpu 노드에 배치)

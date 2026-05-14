@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-crds
+  namespace: argo
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/kubeflow/manifests.git
+    targetRevision: 26.03
+    path: common/istio/istio-crds/base
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
