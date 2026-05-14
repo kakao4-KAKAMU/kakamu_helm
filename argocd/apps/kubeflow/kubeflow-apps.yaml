@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
     targetRevision: feat/kubeflow
-    path: argocd/overlays/kubeflow-apps-http
+    path: argocd/apps/overlays/kubeflow-apps-http
   destination:
     server: https://kubernetes.default.svc
     namespace: kubeflow
