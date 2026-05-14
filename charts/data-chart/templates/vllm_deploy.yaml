@@ -5,17 +5,17 @@ metadata:
   labels:
     app: vllm
 spec:
-  replicas: 1
+  replicas: 0 # Pod 모두 삭제
   selector:
     matchLabels:
       app: vllm
+  strategy:
+    type: Recreate # 기존 pod 삭제하고 생성
   template:
     metadata:
       labels:
         app: vllm
     spec:
-      strategy:
-        type: Recreate # 기존 pod 강제로 삭제
       runtimeClassName: nvidia # 사용할 GPU 명시
       nodeSelector:
         kubernetes.io/hostname: master1
