@@ -25,3 +25,8 @@ spec:
 
     syncOptions:
       - CreateNamespace=true
+
+# Pod가 어느 노드에도 배치되지 못함
+# 1개는 테인트 (컨트롤 플레인)
+# 3개는 리소스 부족
+# overlays 구조로 전환 필요.

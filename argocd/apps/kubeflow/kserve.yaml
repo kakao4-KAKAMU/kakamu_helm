@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://github.com/kubeflow/manifests.git # kubeflow 공식 깃허브 주소
     targetRevision: "26.03" # 태그
-    path: contrib/kserve/kserve
+    path: contrib/kserve/kserve   # 경로 잘못됨 확인 후 수정 필요
 
   destination:
     server: https://kubernetes.default.svc
