@@ -12,6 +12,6 @@ spec:
       cpu: "500m"
       memory: "512Mi"
     defaultRequest: # 기본 요청
-      cpu: "250m"
-      memory: "256Mi"
+      cpu: "50m" # 극한으로 줄임
+      memory: "128Mi" # 극한으로 줄임
 
