@@ -19,4 +19,4 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - <노드-이름> # 노드 선택 후 작성
+                - worker1
