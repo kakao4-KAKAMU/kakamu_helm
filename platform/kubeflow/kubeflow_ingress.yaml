@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubeflow-ingress
+  namespace: istio-system
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: kubeflow.example.com # front ingress도 / 경로라서 겹쳐서 임시로 host 추가 hosts 파일 직접 추가 필요
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: istio-ingressgateway
+                port:
+                  number: 80
