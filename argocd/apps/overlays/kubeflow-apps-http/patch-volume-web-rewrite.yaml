@@ -1,25 +1,17 @@
-apiVersion: networking.istio.io/v1
+apiVersion: networking.istio.io/v1  # 아까 kubectl get으로 확인한 버전과 맞춰야 함
 kind: VirtualService
 metadata:
-  name: volumes-web-app-volumes-web-app
+  name: volumes-web-app-volumes-web-app # 반드시 풀네임을 적어야 함
   namespace: kubeflow
 spec:
-  gateways:
-    - kubeflow-gateway
-  hosts:
-    - '*'
   http:
-    - headers:
-        request:
-          add:
-            x-forwarded-prefix: /volumes
-      match:
-        - uri:
-            exact: /volumes
-        - uri:
-            prefix: /volumes/
-      route:
-        - destination:
-            host: volumes-web-app-service.kubeflow.svc.cluster.local
-            port:
-              number: 80
+  - match:
+    - uri:
+        prefix: /volumes  # 슬래시 제거한 버전
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: volumes-web-app-service.kubeflow.svc.cluster.local
+        port:
+          number: 80
