@@ -35,4 +35,4 @@ patches:
   - path: patch-secure-cookies.yaml
   - path: patch-gpu-toleration.yaml
   - path: patch-mysql-controlplane.yaml
-  - path: patch-volumes-web-rewrite.yaml
+  - path: patch-volume-web-rewrite.yaml
