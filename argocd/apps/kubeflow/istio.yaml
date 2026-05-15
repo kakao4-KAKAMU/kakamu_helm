@@ -9,10 +9,10 @@ metadata:
 spec:
   project: default
 
-  source:
-    repoURL: https://github.com/kubeflow/manifests.git # kubeflow 공식 깃허브 주소
-    targetRevision: "26.03" # 태그
-    path: common/istio/istio-install/base
+  source: # overlays 구조로 전환
+    repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
+    targetRevision: feat/kubeflow
+    path: argocd/apps/overlays/istio-gpu
 
   destination:
     server: https://kubernetes.default.svc
@@ -25,8 +25,3 @@ spec:
 
     syncOptions:
       - CreateNamespace=true
-
-# Pod가 어느 노드에도 배치되지 못함
-# 1개는 테인트 (컨트롤 플레인)
-# 3개는 리소스 부족
-# overlays 구조로 전환 필요.
