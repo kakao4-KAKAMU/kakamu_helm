@@ -5,6 +5,7 @@ metadata:
   namespace: istio-system
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: kubeflow.example.com # istio 전달 추가
+    nginx.ingress.kubernetes.io/proxy-set-headers: "istio-system/kubeflow-forwarded-headers" # 원본 scheme/host 추가
 spec:
   ingressClassName: nginx
   rules:
