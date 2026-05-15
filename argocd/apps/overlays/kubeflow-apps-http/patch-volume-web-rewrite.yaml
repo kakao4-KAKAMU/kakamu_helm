@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: volumes-web-app-volumes-web-app
+  namespace: kubeflow
+spec:
+  gateways:
+    - kubeflow-gateway
+  hosts:
+    - '*'
+  http:
+    - headers:
+        request:
+          add:
+            x-forwarded-prefix: /volumes
+      match:
+        - uri:
+            exact: /volumes
+        - uri:
+            prefix: /volumes/
+      route:
+        - destination:
+            host: volumes-web-app-service.kubeflow.svc.cluster.local
+            port:
+              number: 80
