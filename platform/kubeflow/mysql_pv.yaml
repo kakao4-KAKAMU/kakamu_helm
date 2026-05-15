@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: "" # Default 스토리지 클래스로 자동 지정 됨.
+  storageClassName: "local-storage" # Default 스토리지 클래스로 자동 지정 됨.
   local:
     path: /mnt/data/mysql-claim # 노드에 실제로 만들어야 함.
   nodeAffinity:
