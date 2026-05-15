@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: kubeflow-ingress
   namespace: istio-system
+  annotations:
+    nginx.ingress.kubernetes.io/upstream-vhost: kubeflow.example.com # istio 전달 추가
 spec:
   ingressClassName: nginx
   rules:
