@@ -47,6 +47,23 @@ spec:
         ports:
           - containerPort: 8000 # fastapi 기본 포트
 
+        readinessProbe: # 준비성 프로브, 실패 시 트래픽 차단
+          httpGet:
+            path: /db-test # db 검사 엔드포인트
+            port: 8000
+          initialDelaySeconds: 10 # 10초 있다가 검사 시작
+          periodSeconds: 10 # 10초마다 재검사
+          timeoutSeconds: 3
+          failureThreshold: 3 # 3번 연속 실패 시 트래픽 차단
+
+        livenessProbe: # 활성 프로브, 실패 시 pod 재시작
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          failureThreshold: 3
+
       volumes:
         - name: firebase-key-volume
           secret:
