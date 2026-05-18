@@ -4,8 +4,8 @@ metadata:
   name: kakamu-dev-front
   namespace: argo
   annotations: # 알림 설정
-    notifications.argoproj.io/subscribe.on-sync-failed.webhook.discord: "" # 실패
-    notifications.argoproj.io/subscribe.on-sync-succeeded.webhook.discord: "" # 성공
+    notifications.argoproj.io/subscribe.on-sync-failed.discord: "" # 실패
+    notifications.argoproj.io/subscribe.on-sync-succeeded.discord: "" # 성공
 spec:
   project: dev # project dev로 변경
   source:
