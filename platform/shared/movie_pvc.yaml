@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: movie-data-local-pvc
+  namespace: data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: local-storage # 1단계의 SC 지정
+  resources:
+    requests:
+      storage: 5Gi # PV 용량 이하로 설정
