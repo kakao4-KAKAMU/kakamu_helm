@@ -5,7 +5,7 @@ metadata:
   labels:
     app: vllm
 spec:
-  replicas: 0 # Pod 모두 삭제
+  replicas: 1 # Pod 모두 삭제
   selector:
     matchLabels:
       app: vllm
@@ -34,25 +34,25 @@ spec:
                   key: readtoken
           args:
             - "--model"
-            - "Qwen/Qwen3.5-2B" # 사용할 모델 이름
+            - "Qwen/Qwen2.5-7B-Instruct-AWQ" # 사용할 모델 이름
             - "--trust-remote-code"
             - "--download-dir"
             - "/data"
             - "--gpu-memory-utilization"
             - "0.88"
             - "--max-model-len"
-            - "2K"
+            - "2048"
             - "--max-num-batched-tokens"
-            - "4K"
-            - "--max-num-seqs"
-            - "5"
+            - "4096"
+            - "--max-num-seqs" # 한 번에 8개 요청 처리
+            - "8"
             - "--dtype"
             - "float16"
             - "--quantization"
-            - "bitsandbytes"
-            - "--attention-backend"
-            - "FLASHINFER"
-            - "--attention-config.use_trtllm_attention=0"
+            - "awq"
+            - "--enforce-eager" # 안정화를 중시
+            #- "--attention-backend" # 모델 백엔드 선택
+            #- "FLASHINFER"
             # - "cyankiwi/gemma-4-E2B-it-AWQ-INT4" # 1. 모델 경로 변경 (positional argument)
             # - "--trust-remote-code"
             # - "--download-dir"
