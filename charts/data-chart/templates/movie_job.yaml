@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: movie-keyword-extraction-job
+  namespace: data
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      containers:
+      - name: worker
+        image: topawa/movie-keyword-job:v1
+        imagePullPolicy: Always
+        env:
+        - name: VLLM_URL
+          value: "http://vllm-service.data.svc.cluster.local/v1"
+        - name: INPUT_FILE
+          value: "/data/overview_keywords_gemini_100.csv" # 데이터 파일명
+        - name: OUTPUT_PREFIX
+          value: "/data/movies_result"
+        - name: CHUNK_SIZE
+          value: "5000"
+        - name: MAX_CONCURRENT_REQUESTS # 동시 요청 수
+          value: "8"
+        volumeMounts:
+        - name: task-data
+          mountPath: /data # 파드 내부 경로
+      restartPolicy: OnFailure
+      volumes:
+      - name: task-data
+        # ◀ hostPath 지우고 PVC 연결로 변경 완료!
+        persistentVolumeClaim:
+          claimName: movie-data-local-pvc
