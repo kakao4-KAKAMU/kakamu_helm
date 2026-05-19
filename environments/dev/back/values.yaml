@@ -1,5 +1,5 @@
 image:
   repository: topawa/filma-backend
-  tag: "e1d153a"
+  tag: "3107669"
   ifPullPolicy: IfNotPresent
 namespace: dev-back
