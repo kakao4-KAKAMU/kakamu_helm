@@ -21,7 +21,7 @@ spec:
         - name: CHUNK_SIZE
           value: "5000"
         - name: MAX_CONCURRENT_REQUESTS # 동시 요청 수
-          value: "8"
+          value: "1"
         volumeMounts:
         - name: task-data
           mountPath: /data # 파드 내부 경로
