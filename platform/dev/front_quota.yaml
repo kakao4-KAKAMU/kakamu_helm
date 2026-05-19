@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-front-quota
+  namespace: dev-front
+  labels:
+    env: dev
+spec:
+  hard:
+    pods: "3" # 최대 5개 pod
+    requests.cpu: "1" # 0.5cpu
+    requests.memory: "1Gi" # 512Mi
+    limits.cpu: "2" # 최대 1cpu
+    limits.memory: "2Gi" # 최대 1Gi
