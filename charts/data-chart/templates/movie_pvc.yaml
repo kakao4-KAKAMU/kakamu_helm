@@ -9,4 +9,4 @@ spec:
   storageClassName: local-storage # 1단계의 SC 지정
   resources:
     requests:
-      storage: 5Gi # PV 용량 이하로 설정
+      storage: 10Gi # PV 용량 이하로 설정

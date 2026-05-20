@@ -4,13 +4,13 @@ metadata:
   name: movie-pv
 spec:
   capacity:
-    storage: "5Gi" # 5 기가
+    storage: "10Gi" # 10 기가
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: "/mnt/data/movie" # VM에 실제로 존재해야함.
+    path: "/home/ubuntu/movie" # VM에 실제로 존재해야함.
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -18,4 +18,4 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - worker1
+                - master1
