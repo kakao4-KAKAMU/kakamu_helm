@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
       - name: worker
-        image: topawa/movie-keyword-job:v1
+        image: topawa/movie-keyword-job:v2 # 버전 업그레이드
         imagePullPolicy: Always
         env:
         - name: VLLM_URL
