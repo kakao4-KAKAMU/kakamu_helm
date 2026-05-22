@@ -41,11 +41,11 @@ spec:
             - "--gpu-memory-utilization"
             - "0.88"
             - "--max-model-len"
-            - "2048"
+            - "4096"
             - "--max-num-batched-tokens"
             - "4096"
             - "--max-num-seqs" # 한 번에 8개 요청 처리
-            - "8"
+            - "16"
             - "--dtype"
             - "float16"
             - "--quantization"
