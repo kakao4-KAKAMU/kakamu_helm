@@ -15,7 +15,7 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: vllm-embed-service # vllm-embed 서비스 이름 (clusterIP)
+            name: vllm-service # vllm-embed 서비스 이름 (clusterIP)
             port:
               number: 8001 # vllm-embed 서비스의 port 와 일치해야 함.
       - path: /vllm(/|$)(.*)
