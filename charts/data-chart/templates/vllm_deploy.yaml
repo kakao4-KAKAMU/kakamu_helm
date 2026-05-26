@@ -39,12 +39,14 @@ spec:
             - "--download-dir"
             - "/data"
             - "--gpu-memory-utilization"
-            - "0.88"
+            - "0.70"
+            - "--runner"
+            - "generate"
             - "--max-model-len"
             - "4096"
             - "--max-num-batched-tokens"
             - "4096"
-            - "--max-num-seqs" # 한 번에 8개 요청 처리
+            - "--max-num-seqs" # 한 번에 16개 요청 처리
             - "16"
             - "--dtype"
             - "float16"
@@ -73,7 +75,7 @@ spec:
 
           resources:
             limits:
-              nvidia.com/gpu: "1" # gpu 1개
+              nvidia.com/gpu.shared: "1" # gpu 1개
               memory: "32Gi"
               cpu: "8"
             requests:
@@ -101,6 +103,55 @@ spec:
               port: 8000
             failureThreshold: 100   # 100번 실패할 때까지 시도
             periodSeconds: 10 # 10초 마다 확인
+        - name: vllm-embed
+          image: vllm/vllm-openai:latest
+          env:
+            - name: HF_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: vllm-token
+                  key: readtoken
+          args:
+            - "--model"
+            - "BAAI/bge-m3"
+            - "--download-dir"
+            - "/data"
+            - "--host"
+            - "0.0.0.0"
+            - "--port"
+            - "8001"
+            - "--runner"
+            - "pooling"
+            - "--convert"
+            - "embed"
+            - "--gpu-memory-utilization"
+            - "0.10"
+          ports:
+            - containerPort: 8001
+          resources:
+            limits:
+              nvidia.com/gpu.shared: "1"
+          volumeMounts:
+            - name: model-volume
+              mountPath: /data
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8001
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8001
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8001
+            failureThreshold: 100
+            periodSeconds: 10
       volumes:
       - name: model-volume
         persistentVolumeClaim:
