@@ -34,10 +34,16 @@ spec:
                   key: readtoken
           args:
             - "--model"
-            - "Qwen/Qwen2.5-7B-Instruct-AWQ" # 사용할 모델 이름
+            - "Qwen/Qwen3-8B-GGUF:Q4_K_M" # 사용할 모델 이름
+            - "--hf-config-path"
+            - "Qwen/Qwen3-8B"
+            - "--tokenizer"
+            - "Qwen/Qwen3-8B"
             - "--trust-remote-code"
             - "--download-dir"
             - "/data"
+            - "--distributed-timeout-seconds"
+            - "600"
             - "--gpu-memory-utilization"
             - "0.70"
             - "--runner"
@@ -48,10 +54,6 @@ spec:
             - "4096"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
             - "16"
-            - "--dtype"
-            - "float16"
-            - "--quantization"
-            - "awq"
             - "--enforce-eager" # 안정화를 중시
             #- "--attention-backend" # 모델 백엔드 선택
             #- "FLASHINFER"
