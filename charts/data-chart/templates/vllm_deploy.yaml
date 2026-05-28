@@ -40,6 +40,8 @@ spec:
             - "--tokenizer"
             - "Qwen/Qwen3-8B"
             - "--trust-remote-code"
+            - "--tensor-parallel-size"
+            - "4"
             - "--download-dir"
             - "/data"
             - "--distributed-timeout-seconds"
