@@ -35,6 +35,8 @@ spec:
           args:
             - "--model"
             - "Qwen/Qwen3-8B-GGUF:Q4_K_M" # 사용할 모델 이름
+            - "--hf-config-path"
+            - "Qwen/Qwen3-8B"
             - "--tokenizer"
             - "Qwen/Qwen3-8B"
             - "--trust-remote-code"
