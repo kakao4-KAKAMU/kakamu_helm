@@ -39,6 +39,9 @@ spec:
             value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_SERVER):$(POSTGRES_PORT)/$(POSTGRES_DB)"
           - name: FIREBASE_CONFIG_PATH # firebase 키 환경 변수
             value: "/app/auth/firebase-key.json"
+
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: "alloy.monitoring.svc.cluster.local:4317"
         volumeMounts:
           - name: firebase-key-volume
             mountPath: /app/auth
