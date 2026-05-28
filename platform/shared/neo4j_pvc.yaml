@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: neo4j-pvc
+  namespace: data
+spec:
+  accessModes:
+    - ReadWriteOnce
+
+  storageClassName: local-storage
+
+  resources:
+    requests:
+      storage: 10Gi # 이미지 저장소 크기
