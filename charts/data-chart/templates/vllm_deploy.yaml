@@ -42,6 +42,8 @@ spec:
             - "--trust-remote-code"
             - "--download-dir"
             - "/data"
+            - "--distributed-timeout-seconds"
+            - "600"
             - "--gpu-memory-utilization"
             - "0.70"
             - "--runner"
