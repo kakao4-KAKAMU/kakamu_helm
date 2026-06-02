@@ -9,6 +9,7 @@ spec:
   selector:
     matchLabels:
       app: filma-back
+  progressDeadlineSeconds: 60 # 60초 동안 배포 실패하면 전체 실패 처리
   template:
     metadata:
       labels:
@@ -52,6 +53,13 @@ spec:
 
         ports:
           - containerPort: 8000 # fastapi 기본 포트
+
+        startupProbe: # 배포 실패 처리 테스트용
+          httpGet:
+            path: /no-path-test
+            port: 80
+          failureThreshold: 2 # 2번
+          periodSeconds: 5 # 5초마다
 
         readinessProbe: # 준비성 프로브, 실패 시 트래픽 차단
           httpGet:
