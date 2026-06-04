@@ -33,8 +33,14 @@ spec:
                 name: postgresql-secret
                 key: password
 
-          - name: REDIS_URL # 실제로 없는 주소, 나중에 redis 배포 후 맞게 수정
-            value: "redis://localhost:6379/0"
+          - name: REDIS_HOST
+            value: "redis-service.data.svc.cluster.local"
+          - name: REDIS_PORT
+            value: "6379"
+          - name: REDIS_PASSWORD
+            value: ""
+          - name: REDIS_URL # 배포된 redis 서비스
+            value: "redis://redis-service.data.svc.cluster.local"
 
           - name: DATABASE_URL
             value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_SERVER):$(POSTGRES_PORT)/$(POSTGRES_DB)"
