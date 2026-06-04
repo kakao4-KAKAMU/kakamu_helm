@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine # 경량화 이미지
+          command: ["redis-server", "--protected-mode", "no"]
+          ports:
+          - containerPort: 6379 # 컨테이너 포트
+            name: redis
+          resources: # 리소스 제한
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "250m"
+              memory: "500Mi"
