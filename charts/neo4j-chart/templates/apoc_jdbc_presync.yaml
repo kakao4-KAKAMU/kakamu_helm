@@ -55,9 +55,10 @@ spec:
       restartPolicy: Never
       containers:
         - name: sync
-          image: registry.k8s.io/kubernetes/kubectl:v1.32.0
+          # registry.k8s.io/kubernetes/kubectl 은 distroless 이미지로 /bin/sh 가 없음
+          image: {{ .Values.argocd.apocJdbcSyncImage }}
           command:
-            - /bin/sh
+            - /bin/bash
             - -ec
             - |
               PASS="$(kubectl get secret {{ .Values.postgresql.existingSecret }} -n {{ .Release.Namespace }} -o jsonpath='{.data.{{ .Values.postgresql.passwordKey }}}' | base64 -d)"
