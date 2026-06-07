@@ -20,7 +20,7 @@ neo4j:
     edition: community
     resources:
       requests:
-        cpu: "300m"
+        cpu: 1
         memory: "1.5Gi"
       limits:
         memory: "1.5Gi"
