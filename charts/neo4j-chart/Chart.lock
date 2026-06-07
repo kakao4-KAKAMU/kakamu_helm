@@ -1,0 +1,6 @@
+dependencies:
+- name: neo4j
+  repository: https://helm.neo4j.com/neo4j
+  version: 2026.5.0
+digest: sha256:0c6b5780e033dbcdd30172ee34595e359cfd42e4f4bf1b2843bfd5324bb9f194
+generated: "2026-06-07T15:27:24.833099+09:00"

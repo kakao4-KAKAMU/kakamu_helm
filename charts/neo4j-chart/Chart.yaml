@@ -1,0 +1,12 @@
+apiVersion: v2
+name: kakamu-neo4j
+description: Helm chart for Kakamu Neo4j graph database
+type: application
+
+version: 0.1.0
+appVersion: "2026.05.0"
+
+dependencies:
+  - name: neo4j
+    version: 2026.5.0
+    repository: https://helm.neo4j.com/neo4j
