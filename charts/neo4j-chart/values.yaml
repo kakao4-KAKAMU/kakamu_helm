@@ -1,8 +1,6 @@
 # ArgoCD 배포 시 PreSync Job으로 APOC JDBC Secret 생성
 argocd:
   enabled: true
-  # shell 포함 kubectl 이미지 (distroless 공식 이미지는 /bin/sh 미포함)
-  apocJdbcSyncImage: docker.io/bitnami/kubectl:1.32.3
 
 # data-chart postgresql 설정과 동일한 연결 정보
 postgresql:
