@@ -29,7 +29,7 @@ neo4j:
     kubernetes.io/hostname: worker3
 
   env:
-    NEO4J_PLUGINS: '["apoc", "graph-data-science"]'
+    NEO4J_PLUGINS: '["apoc-extended", "graph-data-science"]'
 
   volumes:
     data:
