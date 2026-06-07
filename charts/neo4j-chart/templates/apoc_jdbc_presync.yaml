@@ -58,8 +58,6 @@ spec:
           # registry.k8s.io/kubernetes/kubectl 은 distroless 이미지로 /bin/sh 가 없음
           image: {{ .Values.argocd.apocJdbcSyncImage }}
           command:
-            - /bin/bash
-            - -ec
             - |
               PASS="$(kubectl get secret {{ .Values.postgresql.existingSecret }} -n {{ .Release.Namespace }} -o jsonpath='{.data.{{ .Values.postgresql.passwordKey }}}' | base64 -d)"
               JDBC_URL="jdbc:postgresql://{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.database }}?user={{ .Values.postgresql.user }}&password=${PASS}"
