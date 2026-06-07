@@ -20,9 +20,10 @@ neo4j:
     edition: community
     resources:
       requests:
-        memory: "2Gi"
+        cpu: "500m"
+        memory: "1Gi"
       limits:
-        memory: "2Gi"
+        memory: "1Gi"
 
   nodeSelector:
     kubernetes.io/hostname: worker3
