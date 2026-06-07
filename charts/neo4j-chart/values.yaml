@@ -46,7 +46,7 @@ neo4j:
 
   services:
     neo4j:
-      enabled: true
+      enabled: false
       spec:
         type: ClusterIP
 
