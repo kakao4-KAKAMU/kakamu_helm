@@ -1,4 +1,4 @@
-{{- if .Values.argocd.enabled }}
+{{- if and .Values.argocd.enabled .Values.neo4j.enabled }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
