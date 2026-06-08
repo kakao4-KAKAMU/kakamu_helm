@@ -27,7 +27,7 @@ neo4j:
         memory: "2Gi"
 
   nodeSelector:
-    kubernetes.io/hostname: worker3
+    kubernetes.io/hostname: master1
 
   env:
     NEO4J_PLUGINS: '["apoc-extended", "graph-data-science"]'
