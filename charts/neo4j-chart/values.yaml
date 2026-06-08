@@ -21,7 +21,7 @@ neo4j:
     edition: community
     resources:
       requests:
-        cpu: 1
+        cpu: "1"
         memory: "2Gi"
       limits:
         memory: "2Gi"
@@ -30,7 +30,7 @@ neo4j:
     kubernetes.io/hostname: master1
 
   podSpec:
-    tolerations: # 컨트롤 플레인에 배치하기 위한 톨러레이션
+    tolerations:
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
         effect: NoSchedule
@@ -69,9 +69,9 @@ neo4j:
     dbms.security.procedures.unrestricted: "apoc.*,gds.*"
     dbms.security.procedures.allowlist: "apoc.*,gds.*"
 
-    server.memory.pagecache.size: "256m"
-    server.memory.heap.max_size: "512G"
-    server.memory.heap.initial_size: "256m"
+    server.memory.pagecache.size: "512m"
+    server.memory.heap.initial_size: "512m"
+    server.memory.heap.max_size: "1G"
     server.directories.logs: "/logs"
 
   apoc_config:

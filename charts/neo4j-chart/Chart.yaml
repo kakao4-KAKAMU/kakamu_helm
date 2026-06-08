@@ -4,10 +4,10 @@ description: Helm chart for Kakamu Neo4j graph database
 type: application
 
 version: 0.1.0
-appVersion: "2026.05.0"
+appVersion: "2026.04.0"
 
 dependencies:
   - name: neo4j
-    version: 2026.5.0
+    version: 2026.4.0
     repository: https://helm.neo4j.com/neo4j
     condition: neo4j.enabled
