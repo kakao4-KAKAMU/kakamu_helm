@@ -59,7 +59,7 @@ neo4j:
 
   config:
     server.default_listen_address: "0.0.0.0"
-    server.config.strict_validation.enabled: "true"
+    server.config.strict_validation.enabled: "false"
 
     server.bolt.enabled: "true"
     server.bolt.listen_address: ":7687"
