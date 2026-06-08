@@ -84,6 +84,8 @@ neo4j:
       ports:
         http:
           enabled: true
+          port: 7474
+          targetPort: 7474
         https:
           enabled: false
         bolt:
