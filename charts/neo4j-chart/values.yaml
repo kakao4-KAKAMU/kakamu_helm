@@ -55,7 +55,16 @@ neo4j:
     neo4j:
       enabled: true
       spec:
-        type: ClusterIP
+        type: NodePort
+      ports:
+        http:
+          enabled: true
+        https:
+          enabled: false
+        bolt:
+          enabled: true
+          port: 7687
+          targetPort: 7687
 
   config:
     server.default_listen_address: "0.0.0.0"
@@ -63,7 +72,7 @@ neo4j:
 
     server.bolt.enabled: "true"
     server.bolt.listen_address: ":7687"
-    server.bolt.advertised_address: "localhost:7687"
+    server.bolt.advertised_address: ":7687"
     server.bolt.tls_level: "DISABLED"
 
     dbms.security.procedures.unrestricted: "apoc.*,gds.*"
