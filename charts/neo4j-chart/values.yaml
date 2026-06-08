@@ -13,7 +13,7 @@ postgresql:
   apocJdbcSecretName: neo4j-apoc-postgresql-jdbc
 
 neo4j:
-  enabled: false
+  enabled: true
   disableLookups: true
 
   neo4j:
