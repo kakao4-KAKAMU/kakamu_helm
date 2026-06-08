@@ -28,11 +28,12 @@ neo4j:
 
   nodeSelector:
     kubernetes.io/hostname: master1
-  
-  tolerations: # 컨트롤 플레인에 배치 하기 위한 톨러레이션
-    - key: node-role.kubernetes.io/control-plane
-      operator: Exists
-      effect: NoSchedule
+
+  podSpec:
+    tolerations: # 컨트롤 플레인에 배치하기 위한 톨러레이션
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
 
   env:
     NEO4J_PLUGINS: '["apoc-extended", "graph-data-science"]'
