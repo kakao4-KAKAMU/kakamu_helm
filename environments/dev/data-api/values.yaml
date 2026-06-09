@@ -1,0 +1,4 @@
+image:
+  repository: topawa/movie-recommend-system-api
+  tag: "1.1"
+  ifPullPolicy: IfNotPresent
