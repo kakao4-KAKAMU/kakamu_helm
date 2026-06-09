@@ -53,6 +53,8 @@ postgresql:
 
     resources: # 리소스 확인 후 조정 필요
       requests:
-        cpu: "300m"
-        memory: "512Mi"
-      limits: {}
+        cpu: "50m"
+        memory: "128Mi"
+      limits:
+        cpu: "200m"
+        memory: "256Mi"
