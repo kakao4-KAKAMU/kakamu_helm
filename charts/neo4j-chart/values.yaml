@@ -109,8 +109,6 @@ neo4j:
     server.bolt.advertised_address: ":7687"
     server.bolt.tls_level: "DISABLED"
 
-    dbms.security.auth_enabled: "false"
-
     dbms.security.procedures.unrestricted: "apoc.*,gds.*"
     dbms.security.procedures.allowlist: "apoc.*,gds.*"
 
