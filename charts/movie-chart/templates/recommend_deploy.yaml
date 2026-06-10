@@ -31,7 +31,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: kakamu-neo4j-auth
-                  key: password
+                  key: NEO4J_AUTH
 
             - name: NEO4J_DATABASE
               value: "neo4j"
@@ -69,7 +69,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: kakamu-neo4j-auth
-                  key: password
+                  key: NEO4J_AUTH
 
             - name: NEO4J_DATABASE
               value: "neo4j"
