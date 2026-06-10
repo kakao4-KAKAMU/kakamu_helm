@@ -23,7 +23,7 @@ spec:
           env:
             # Neo4j 설정
             - name: NEO4J_URI
-              value: "http://kakamu-neo4j.data.svc.cluster.local"
+              value: "bolt://kakamu-neo4j.data.svc.cluster.local"
             - name: NEO4J_USER
               value: "neo4j"
 
@@ -61,7 +61,7 @@ spec:
           env:
             # Neo4j 설정
             - name: NEO4J_URI
-              value: "http://kakamu-neo4j.data.svc.cluster.local"
+              value: "bolt://kakamu-neo4j.data.svc.cluster.local"
             - name: NEO4J_USER
               value: "neo4j"
 
@@ -106,7 +106,7 @@ spec:
           env:
             # Neo4j 설정
             - name: NEO4J_URI
-              value: "http://kakamu-neo4j.data.svc.cluster.local"
+              value: "bolt://kakamu-neo4j.data.svc.cluster.local"
             - name: NEO4J_USER
               value: "neo4j"
 
