@@ -1,0 +1,143 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-recommend-deploy
+  labels:
+    app : movie-recommend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie-recommend
+  template:
+    metadata:
+      labels:
+        app: movie-recommend
+    spec:
+      initContainers: # bootstrap
+        - name: {{ (index .Values.containers 0).name }}
+          image: "{{ (index .Values.containers 0).image.repository}}:{{ (index .Values.containers 0).image.tag }}"
+          envFrom:
+            - configMapRef:
+                name: movie-recommend-config
+          env:
+            # Neo4j 설정
+            - name: NEO4J_URI
+              value: "http://kakamu-neo4j.data.svc.cluster.local"
+            - name: NEO4J_USER
+              value: "neo4j"
+
+            - name: NEO4J_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kakamu-neo4j-auth
+                  key: password
+
+            - name: NEO4J_DATABASE
+              value: "neo4j"
+
+            # PostgreSQL 설정
+            - name: PG_HOST
+              value: "kakamu-data-postgresql-primary.data.svc.cluster.local"
+            - name: PG_PORT
+              value: "5432"
+            - name: PG_DATABASE
+              value: "chatbot"
+            - name: PG_USER
+              value: "kakamu"
+
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql-secret
+                  key: password
+
+      containers:
+        - name: {{ (index .Values.containers 1).name }} # api
+          image: "{{ (index .Values.containers 1).image.repository }}:{{ (index .Values.containers 1).image.tag }}"
+          envFrom:
+            - configMapRef:
+                name: movie-recommend-config
+          env:
+            # Neo4j 설정
+            - name: NEO4J_URI
+              value: "http://kakamu-neo4j.data.svc.cluster.local"
+            - name: NEO4J_USER
+              value: "neo4j"
+
+            - name: NEO4J_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kakamu-neo4j-auth
+                  key: password
+
+            - name: NEO4J_DATABASE
+              value: "neo4j"
+
+            # PostgreSQL 설정
+            - name: PG_HOST
+              value: "kakamu-data-postgresql-primary.data.svc.cluster.local"
+            - name: PG_PORT
+              value: "5432"
+            - name: PG_DATABASE
+              value: "chatbot"
+            - name: PG_USER
+              value: "kakamu"
+
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql-secret
+                  key: password
+
+            - name: VLLM_GEN__BASE_URL
+              value: "http://vllm-service.data.svc.cluster.local:8000"
+
+            - name: VLLM_EMBED__BASE_URL
+              value: "http://vllm-service.data.svc.cluster.local:8001"
+          ports:
+            - containerPort: 8080
+
+        - name: {{ (index .Values.containers 2).name }} # ingest-worker
+          image: "{{ (index .Values.containers 2).image.repository }}:{{ (index .Values.containers 2).image.tag }}"
+          envFrom:
+            - configMapRef:
+                name: movie-recommend-config
+          env:
+            # Neo4j 설정
+            - name: NEO4J_URI
+              value: "http://kakamu-neo4j.data.svc.cluster.local"
+            - name: NEO4J_USER
+              value: "neo4j"
+
+            - name: NEO4J_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kakamu-neo4j-auth
+                  key: password
+
+            - name: NEO4J_DATABASE
+              value: "neo4j"
+
+            # PostgreSQL 설정
+            - name: PG_HOST
+              value: "kakamu-data-postgresql-primary.data.svc.cluster.local"
+            - name: PG_PORT
+              value: "5432"
+            - name: PG_DATABASE
+              value: "chatbot"
+            - name: PG_USER
+              value: "kakamu"
+
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql-secret
+                  key: password
+
+            - name: VLLM_GEN__BASE_URL
+              value: "http://vllm-service.data.svc.cluster.local:8000"
+
+            - name: VLLM_EMBED__BASE_URL
+              value: "http://vllm-service.data.svc.cluster.local:8001"
+
