@@ -1,3 +1,7 @@
+{{- define "neo4j-chart.neo4jAuthSecretName" -}}
+{{- .Values.neo4j.neo4j.passwordFromSecret | default (printf "%s-auth" .Values.neo4j.neo4j.name) -}}
+{{- end -}}
+
 {{- define "neo4j-chart.postgresqlPassword" -}}
 {{- $password := "" -}}
 {{- if .Values.postgresql.existingSecret -}}

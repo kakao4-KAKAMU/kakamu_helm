@@ -1,4 +1,4 @@
-# ArgoCD 배포 시 PreSync Job으로 APOC JDBC Secret 생성
+# ArgoCD 배포 시 PreSync Job으로 Neo4j auth / APOC JDBC Secret 관리
 argocd:
   enabled: true
 
@@ -14,11 +14,15 @@ postgresql:
 
 neo4j:
   enabled: true
+  # true: nodeSelector 클러스터 검증 등 subchart lookup 비활성화 (Argo CD helm template 호환)
+  # Neo4j 비밀번호는 passwordFromSecret + neo4j_auth_secret.yaml + PreSync Job으로 관리
   disableLookups: true
 
   neo4j:
     name: kakamu-neo4j
     edition: community
+    # subchart neo4j-auth.yaml 비활성화 → 부모 차트가 Secret 수명주기 관리
+    passwordFromSecret: kakamu-neo4j-auth
     resources:
       requests:
         cpu: "1"
@@ -104,6 +108,8 @@ neo4j:
     server.bolt.listen_address: ":7687"
     server.bolt.advertised_address: ":7687"
     server.bolt.tls_level: "DISABLED"
+
+    dbms.security.auth_enabled: "false"
 
     dbms.security.procedures.unrestricted: "apoc.*,gds.*"
     dbms.security.procedures.allowlist: "apoc.*,gds.*"
