@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: movie_recommend
+  namespace: argo
+spec:
+  project: shared
+  source:
+    repoURL: https://github.com/kakao4-KAKAMU/kakamu_helm.git
+    targetRevision: main
+    path: charts/movie-chart
+    helm:
+      valueFiles:
+        - ../../environments/dev/movie/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: data
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true  # 네임스페이스 자동 생성
+      - Replace=true          # 꼬인 리소스 무조건 덮어쓰기
+      - Validate=false        # 스키마 검증 생략 (속도 향상 및 에러 방지)
