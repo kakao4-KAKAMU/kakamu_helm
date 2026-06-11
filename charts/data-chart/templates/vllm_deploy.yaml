@@ -54,8 +54,6 @@ spec:
             - "4096"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
             - "16"
-            - "--enable-chunked-prefill"
-            - "--enable-prefix-caching"
             - "--enforce-eager" # 안정화를 중시
             #- "--attention-backend" # 모델 백엔드 선택
             #- "FLASHINFER"
