@@ -1,4 +1,0 @@
-image:
-  repository: topawa/movie-recommend-system-bootstrap
-  tag: "1.4"
-  ifPullPolicy: IfNotPresent
