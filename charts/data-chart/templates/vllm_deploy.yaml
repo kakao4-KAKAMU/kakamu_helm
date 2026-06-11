@@ -25,7 +25,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: vllm
-          image: vllm/vllm-openai:latest
+          image: vllm/vllm-openai:v0.21.0
           env:
             - name: HF_TOKEN # 환경 변수 이름 확인 필요, 안되면 HUGGING_FACE_HUB_TOKEN 으로 변경
               valueFrom:
@@ -106,7 +106,7 @@ spec:
             failureThreshold: 100   # 100번 실패할 때까지 시도
             periodSeconds: 10 # 10초 마다 확인
         - name: vllm-embed
-          image: vllm/vllm-openai:latest
+          image: vllm/vllm-openai:v0.21.0
           env:
             - name: HF_TOKEN
               valueFrom:
