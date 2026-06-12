@@ -12,5 +12,5 @@ containers:
   - name: ingest-worker
     image:
       repository: topawa/movie-recommend-system-ingest-worker
-      tag: "1.6"
+      tag: "1.7"
       pullPolicy: IfNotPresent
