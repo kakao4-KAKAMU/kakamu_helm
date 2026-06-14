@@ -2,7 +2,7 @@ containers:
   - name: bootstrap
     image:
       repository: topawa/movie-recommend-system-bootstrap
-      tag: "1.4"
+      tag: "1.5"
       pullPolicy: IfNotPresent
   - name: api
     image:
