@@ -11,6 +11,11 @@ postgresql:
   existingSecret: postgresql-secret
   passwordKey: password
   apocJdbcSecretName: neo4j-apoc-postgresql-jdbc
+  # APOC JDBC용 PostgreSQL 드라이버 (Pod initContainer에서 /plugins로 다운로드)
+  jdbcDriver:
+    enabled: true
+    jarName: pgJDBC 42.7.9.jar
+    downloadUrl: https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.9/postgresql-42.7.9.jar
 
 neo4j:
   enabled: true
@@ -38,6 +43,16 @@ neo4j:
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
         effect: NoSchedule
+    initContainers:
+      - name: download-pgjdbc
+        image: curlimages/curl:8.12.1
+        command: ["/bin/sh", "/scripts/download.sh"]
+        volumeMounts:
+          - name: data
+            mountPath: /plugins
+          - name: pgjdbc-init-script
+            mountPath: /scripts
+            readOnly: true
 
   env:
     NEO4J_PLUGINS: '["apoc-extended", "graph-data-science"]'
@@ -79,6 +94,17 @@ neo4j:
       disableSubPathExpr: true
       share:
         name: data
+    plugins:
+      mode: share
+      disableSubPathExpr: true
+      share:
+        name: data
+
+  additionalVolumes:
+    - name: pgjdbc-init-script
+      configMap:
+        name: neo4j-pgjdbc-init
+        defaultMode: 0755
 
   services:
     neo4j:
@@ -116,6 +142,7 @@ neo4j:
     server.memory.heap.initial_size: "512m"
     server.memory.heap.max_size: "1G"
     server.directories.logs: "/logs"
+    server.directories.plugins: "/plugins"
 
   apoc_config:
     apoc.import.file.use_neo4j_config: "true"
