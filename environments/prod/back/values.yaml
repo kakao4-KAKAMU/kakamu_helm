@@ -1,1 +1,9 @@
+image:
+  repository: topawa/filma-backend
+  tag: "c0f7f61" # 이미지 태그
+  ifPullPolicy: IfNotPresent
+
+replicas: 3 # prod 환경 최소 pod 수
+
+namespace: prod-back # prod
 
