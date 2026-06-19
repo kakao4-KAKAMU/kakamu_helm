@@ -126,6 +126,8 @@ spec:
             - "pooling"
             - "--convert"
             - "embed"
+            - "--max-model-len"
+            - "8192"
             - "--gpu-memory-utilization"
             - "0.20"
           ports:
