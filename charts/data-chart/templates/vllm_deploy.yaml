@@ -127,7 +127,7 @@ spec:
             - "--convert"
             - "embed"
             - "--gpu-memory-utilization"
-            - "0.10"
+            - "0.20"
           ports:
             - containerPort: 8001
           resources:
