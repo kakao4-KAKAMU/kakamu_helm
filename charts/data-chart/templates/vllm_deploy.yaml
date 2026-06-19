@@ -115,7 +115,7 @@ spec:
                   key: readtoken
           args:
             - "--model"
-            - "BAAI/bge-m3"
+            - "Qwen/Qwen3-Embedding-0.6B"
             - "--download-dir"
             - "/data"
             - "--host"
