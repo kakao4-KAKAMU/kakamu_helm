@@ -5,7 +5,7 @@ metadata:
   labels:
     app : filma-back
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }} # 설정 파일로 관리
   selector:
     matchLabels:
       app: filma-back

@@ -3,5 +3,7 @@ image:
   tag: "latest"
   ifPullPolicy: IfNotPresent
 
+replicas: 1 # dev 환경 기본 pod 수
+
 namespace: dev-back
 
