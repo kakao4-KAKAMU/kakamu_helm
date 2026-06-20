@@ -11,7 +11,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /chat(/|$)(.*)
+      - path: /chat-api(/|$)(.*)
         pathType: ImplementationSpecific
         backend:
           service:
