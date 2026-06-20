@@ -10,9 +10,8 @@ spec:
     kind: Deployment
     name: back-deploy # 타겟 deploy 이름
 
-  minReplicas: 1 # 최소 replicas 1개
-  maxReplicas: 1 # 최대 replicas 3개 , prod 환경에서는 고가용성 고려해서 설계
-
+  minReplicas: 3
+  maxReplicas: 6
   metrics:
     - type: Resource
       resource:
