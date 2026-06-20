@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: prod # project 이름 prod
+  namespace: argo
+spec:
+  description: Dev environment project
+
+  sourceRepos:
+    - https://github.com/kakao4-KAKAMU/kakamu_helm.git
+
+  destinations: # 접근 가능한 네임스페이스
+    - server: https://kubernetes.default.svc
+      namespace: argo  # argo
+    - server: https://kubernetes.default.svc
+      namespace: prod-* # dev-back, dev-front
+    - server: https://kubernetes.default.svc
+      namespace: data # data
+
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
