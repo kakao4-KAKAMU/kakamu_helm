@@ -15,6 +15,13 @@ spec:
       labels:
         app: filma-back
     spec:
+      topologySpreadConstraints: # 토폴리지 분배 제약 조건
+        - maxSkew: 1 # 최대 차이 1개
+          topologyKey: kubernets.io/hostname # 노드 이름을 기준
+          whenUnsatisfiable: DoNotSchedule # 조건에 안 맞으면 배포 금지
+          labelSelector:
+            matchLabels:
+              app: filma-back
       containers:
       - name: filma-back
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -59,13 +66,6 @@ spec:
 
         ports:
           - containerPort: 8000 # fastapi 기본 포트
-
-#        startupProbe: # 배포 실패 처리 테스트용
-#          httpGet:
-#            path: /no-path-test
-#            port: 80
-#          failureThreshold: 2 # 2번
-#          periodSeconds: 5 # 5초마다
 
         readinessProbe: # 준비성 프로브, 실패 시 트래픽 차단
           httpGet:
