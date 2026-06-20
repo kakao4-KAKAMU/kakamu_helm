@@ -2,15 +2,15 @@ containers:
   - name: bootstrap
     image:
       repository: topawa/movie-recommend-system-bootstrap
-      tag: "1.5"
+      tag: "1.6"
       pullPolicy: IfNotPresent
   - name: api
     image:
       repository: topawa/movie-recommend-system-api
-      tag: "1.15"
+      tag: "1.21"
       pullPolicy: IfNotPresent
   - name: ingest-worker
     image:
       repository: topawa/movie-recommend-system-ingest-worker
-      tag: "1.12"
+      tag: "1.14"
       pullPolicy: IfNotPresent
