@@ -1,0 +1,37 @@
+name: Create PR to Prod on Dev Values Change
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - environments/dev/back/values.yaml
+      - environments/dev/front/values.yaml
+
+permissions:
+  contents: write
+  pull-requests: write
+
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      - name: Create PR to prod
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: prod
+          branch: sync/dev-to-prod-values
+          title: 'test' # PR 이름 변경 필요
+          body: |
+            ## PR 요청 내용 변경 필요
+          labels: |
+            automated-pr
+            sync
+      
