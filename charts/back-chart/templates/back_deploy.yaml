@@ -50,6 +50,9 @@ spec:
           - name: OTEL_EXPORTER_OTLP_ENDPOINT
             value: "alloy.monitoring.svc.cluster.local:4317"
 
+          - name: ML_API_BASE_URL
+            value: "http://movie-service.data.svc.cluster.local:8080/chat-api"
+
           - name: APP_ENV
             value: "dev"
         volumeMounts:
