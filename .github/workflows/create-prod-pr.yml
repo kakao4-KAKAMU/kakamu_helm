@@ -22,16 +22,35 @@ jobs:
         with:
           ref: dev
 
+      - name: Update Prod Image tag
+        run: |
+          DEV_BACK_TAG=$(yq e '.image.tag' environments/dev/back/values.yaml)
+          yq e -i ".image.tag = \"$DEV_BACK_TAG\"" environments/prod/back/values.yaml
+          
+          DEV_FRONT_TAG=$(yq e '.image.tag' environments/dev/front/values.yaml)
+          yq e -i ".image.tag = \"$DEV_FRONT_TAG\"" environments/prod/front/values.yaml
+          
+          echo "Extracted Dev Back Tag: $DEV_BACK_TAG"
+          echo "Extracted Dev Front Tag: $DEV_FRONT_TAG"
+
       - name: Create PR to prod
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: prod
-          branch: sync/dev-to-prod-values
-          title: 'test' # PR 이름 변경 필요
+          branch: sync/prod-image-update
+          title: '[Release] Update prod image tags from dev'
+          commit-message: 'chore: update prod image tags to match verified dev environment'
           body: |
-            ## PR 요청 내용 변경 필요
+            ## 검증된 이미지 태그 프로덕션 반영
+            
+            - **대상 파일**
+              - `environments/prod/back/values.yaml`
+              - `environments/prod/front/values.yaml`
+            
+            이미지 태그 확인 후 머지 진행
+
           labels: |
             automated-pr
-            sync
+            prod-release
       
