@@ -9,7 +9,8 @@ spec:
   ingressClassName: nginx
   # 나중에 도메인 생기면   - host: 필드로 변경
   rules:
-  - http:
+  - host: dev.filma.cloud
+    http:
       paths:
       - path: /api(/|$)(.*)
         pathType: ImplementationSpecific
