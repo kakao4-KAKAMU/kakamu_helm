@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: frontend-network-policy
+  namespace: prod-back
+spec:
+  podSelector:
+    matchLabels:
+      app: filma-back
+  policyTypes:
+    - Ingress
+    - Egress
+
+  ingress: # 들어오는 트래픽
+    - from:
+        - podSelector:
+            matchLabels:
+              app: filma-back
+      ports:
+        - protocol: TCP
+          port: 8000
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: controller # 인그레스로 들어오는 트래픽 허용
+
+      ports:
+        - protocol: TCP
+          port: 8000 # 백엔드 컨테이너 포트
+  egress: # 나가는 트래픽
+    - {} # 모든 트래픽 허용
