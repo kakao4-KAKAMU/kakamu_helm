@@ -136,7 +136,7 @@ neo4j:
     server.bolt.tls_level: "DISABLED"
 
     server.logs.query.enabled: "true"
-    server.logs.query.level: "INFO"
+    server.logs.query.level: "VERBOSE"
 
     dbms.security.procedures.unrestricted: "apoc.*,gds.*"
     dbms.security.procedures.allowlist: "apoc.*,gds.*"
