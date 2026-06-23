@@ -138,6 +138,13 @@ neo4j:
     server.logs.query.enabled: "true"
     server.logs.query.level: "VERBOSE"
 
+    # ------------ 테스트용
+    dbms.logs.query.threshold: "0ms"
+    dbms.logs.query.parameter_logging_enabled: "true"
+    dbms.logs.query.trace_query_arguments: "true"
+    dbms.logs.query.allocation_logging_enabled: "true"
+    # ------------
+
     dbms.security.procedures.unrestricted: "apoc.*,gds.*"
     dbms.security.procedures.allowlist: "apoc.*,gds.*"
 
