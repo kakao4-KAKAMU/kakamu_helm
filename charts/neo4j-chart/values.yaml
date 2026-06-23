@@ -137,7 +137,6 @@ neo4j:
 
     server.logs.query.enabled: "true"
     server.logs.query.level: "INFO"
-    server.logs.query.threshold: "100ms"
 
     dbms.security.procedures.unrestricted: "apoc.*,gds.*"
     dbms.security.procedures.allowlist: "apoc.*,gds.*"
