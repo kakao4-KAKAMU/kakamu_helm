@@ -152,7 +152,11 @@ neo4j:
     server.directories.logs: "/logs"
     server.directories.plugins: "/plugins"
 
-    server.jvm.additional: ["-XX:+UseG1GC", "-XX:InitiatingHeapOccupancyPercent=45", "-XX:G1ReservePercent=15"]
+  jvm:
+    additionalJvmArguments:
+    - "-XX:+UseG1GC"
+    - "-XX:InitiatingHeapOccupancyPercent=45"
+    - "-XX:G1ReservePercent=15"
 
   apoc_config:
     apoc.import.file.use_neo4j_config: "true"
