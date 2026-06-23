@@ -31,9 +31,9 @@ neo4j:
     resources:
       requests:
         cpu: "1"
-        memory: "2Gi"
+        memory: "8Gi"
       limits:
-        memory: "2Gi"
+        memory: "16Gi"
 
   nodeSelector:
     kubernetes.io/hostname: master1
@@ -135,16 +135,24 @@ neo4j:
     server.bolt.advertised_address: ":7687"
     server.bolt.tls_level: "DISABLED"
 
+    server.logs.query.enabled: "true"
+    server.logs.query.level: "INFO"
+    server.logs.query.threshold: "100ms"
+
     dbms.security.procedures.unrestricted: "apoc.*,gds.*"
     dbms.security.procedures.allowlist: "apoc.*,gds.*"
 
     db.query.default_language: "CYPHER_25"
 
-    server.memory.pagecache.size: "512m"
-    server.memory.heap.initial_size: "512m"
-    server.memory.heap.max_size: "1G"
+    server.memory.pagecache.size: "3G"
+    server.memory.heap.initial_size: "4G"
+    server.memory.heap.max_size: "4G"
+    server.memory.transaction.max_size: "1.5G"
+    server.memory.transaction.global_max_size: "3G"
     server.directories.logs: "/logs"
     server.directories.plugins: "/plugins"
+
+    server.jvm.additional: ["-XX:+UseG1GC", "-XX:InitiatingHeapOccupancyPercent=45", "-XX:G1ReservePercent=15"]
 
   apoc_config:
     apoc.import.file.use_neo4j_config: "true"
