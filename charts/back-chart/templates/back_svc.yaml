@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: back-service
+  labels:
+    app: filma-back
 spec:
   type: ClusterIP
   selector:
