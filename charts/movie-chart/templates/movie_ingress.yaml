@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: movie-ingress
+    # 중요: 서브 경로를 사용할 때 경로 재작성 규칙
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /chat-api/$2 # rewrite 사용
+spec:
+  ingressClassName: nginx
+  # 나중에 도메인 생기면   - host: 필드로 변경
+  rules:
+  - http:
+      paths:
+      - path: /chat-api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: movie-service # movie 추천 서비스 이름 (clusterIP)
+            port:
+              number: 8080 # movie 추천 서비스의 port 와 일치해야 함.

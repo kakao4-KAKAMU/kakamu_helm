@@ -1,0 +1,24 @@
+{{- if .Values.neo4j.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: neo4j-pgjdbc-init
+  namespace: {{ .Release.Namespace }}
+data:
+  download.sh: |
+    #!/bin/sh
+    set -eu
+    {{- if not .Values.postgresql.jdbcDriver.enabled }}
+    echo "postgresql.jdbcDriver.enabled=false, skipping pgJDBC download"
+    exit 0
+    {{- end }}
+    PLUGINS_DIR="/plugins"
+    JAR="${PLUGINS_DIR}/{{ .Values.postgresql.jdbcDriver.jarName }}"
+    mkdir -p "${PLUGINS_DIR}"
+    if [ -f "${JAR}" ]; then
+      echo "${JAR} already exists, skipping download"
+      exit 0
+    fi
+    curl -fsSL -o "${JAR}" "{{ .Values.postgresql.jdbcDriver.downloadUrl }}"
+    echo "Downloaded ${JAR}"
+{{- end }}

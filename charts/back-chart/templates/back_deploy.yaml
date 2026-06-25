@@ -37,6 +37,9 @@ spec:
 
           - name: DATABASE_URL
             value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_SERVER):$(POSTGRES_PORT)/$(POSTGRES_DB)"
+
+          - name: ML_API_BASE_URL
+            value: "http://movie-service.data.svc.cluster.local:8080/chat-api"
         ports:
         - containerPort: 8000 # fastapi 기본 포트
 

@@ -1,4 +1,4 @@
-# ArgoCD 배포 시 PreSync Job으로 APOC JDBC Secret 생성
+# ArgoCD 배포 시 PreSync Job으로 Neo4j auth / APOC JDBC Secret 관리
 argocd:
   enabled: true
 
@@ -11,20 +11,29 @@ postgresql:
   existingSecret: postgresql-secret
   passwordKey: password
   apocJdbcSecretName: neo4j-apoc-postgresql-jdbc
+  # APOC JDBC용 PostgreSQL 드라이버 (Pod initContainer에서 /plugins로 다운로드)
+  jdbcDriver:
+    enabled: true
+    jarName: pgJDBC 42.7.9.jar
+    downloadUrl: https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.9/postgresql-42.7.9.jar
 
 neo4j:
   enabled: true
+  # true: nodeSelector 클러스터 검증 등 subchart lookup 비활성화 (Argo CD helm template 호환)
+  # Neo4j 비밀번호는 passwordFromSecret + neo4j_auth_secret.yaml + PreSync Job으로 관리
   disableLookups: true
 
   neo4j:
     name: kakamu-neo4j
     edition: community
+    # subchart neo4j-auth.yaml 비활성화 → 부모 차트가 Secret 수명주기 관리
+    passwordFromSecret: kakamu-neo4j-auth
     resources:
       requests:
         cpu: "1"
-        memory: "2Gi"
+        memory: "8Gi"
       limits:
-        memory: "2Gi"
+        memory: "16Gi"
 
   nodeSelector:
     kubernetes.io/hostname: master1
@@ -34,6 +43,16 @@ neo4j:
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
         effect: NoSchedule
+    initContainers:
+      - name: download-pgjdbc
+        image: curlimages/curl:8.12.1
+        command: ["/bin/sh", "/scripts/download.sh"]
+        volumeMounts:
+          - name: data
+            mountPath: /plugins
+          - name: pgjdbc-init-script
+            mountPath: /scripts
+            readOnly: true
 
   env:
     NEO4J_PLUGINS: '["apoc-extended", "graph-data-science"]'
@@ -75,6 +94,17 @@ neo4j:
       disableSubPathExpr: true
       share:
         name: data
+    plugins:
+      mode: share
+      disableSubPathExpr: true
+      share:
+        name: data
+
+  additionalVolumes:
+    - name: pgjdbc-init-script
+      configMap:
+        name: neo4j-pgjdbc-init
+        defaultMode: 0755
 
   services:
     neo4j:
@@ -105,13 +135,33 @@ neo4j:
     server.bolt.advertised_address: ":7687"
     server.bolt.tls_level: "DISABLED"
 
+
+    # ------------ 테스트용 - logging 설정
+    db.logs.query.enabled: "INFO"
+    db.logs.query.threshold: "0ms"
+    db.logs.query.transaction.enabled: "VERBOSE"
+    db.logs.query.transaction.threshold: "0ms"
+    db.logs.query.parameter_logging_enabled: "true"
+    # ------------
+
     dbms.security.procedures.unrestricted: "apoc.*,gds.*"
     dbms.security.procedures.allowlist: "apoc.*,gds.*"
 
-    server.memory.pagecache.size: "512m"
-    server.memory.heap.initial_size: "512m"
-    server.memory.heap.max_size: "1G"
+    db.query.default_language: "CYPHER_25"
+
+    # ------------ memory 설정 16gb recommended
+    server.memory.heap.initial_size: "5G"
+    server.memory.heap.max_size: "5G"
+    server.memory.pagecache.size: "7G"
+    
     server.directories.logs: "/logs"
+    server.directories.plugins: "/plugins"
+
+  jvm:
+    additionalJvmArguments:
+    - "-XX:+UseG1GC"
+    - "-XX:InitiatingHeapOccupancyPercent=45"
+    - "-XX:G1ReservePercent=15"
 
   apoc_config:
     apoc.import.file.use_neo4j_config: "true"

@@ -30,8 +30,8 @@ spec:
             - name: NEO4J_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: kakamu-neo4j-auth
-                  key: NEO4J_AUTH
+                  name: neo4j-auth
+                  key: password
 
             - name: NEO4J_DATABASE
               value: "neo4j"
@@ -42,7 +42,7 @@ spec:
             - name: PG_PORT
               value: "5432"
             - name: PG_DATABASE
-              value: "chatbot"
+              value: "kakamu"
             - name: PG_USER
               value: "kakamu"
 
@@ -68,8 +68,8 @@ spec:
             - name: NEO4J_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: kakamu-neo4j-auth
-                  key: NEO4J_AUTH
+                  name: neo4j-auth
+                  key: password
 
             - name: NEO4J_DATABASE
               value: "neo4j"
@@ -80,7 +80,7 @@ spec:
             - name: PG_PORT
               value: "5432"
             - name: PG_DATABASE
-              value: "chatbot"
+              value: "kakamu"
             - name: PG_USER
               value: "kakamu"
 
@@ -91,10 +91,10 @@ spec:
                   key: password
 
             - name: VLLM_GEN__BASE_URL
-              value: "http://vllm-service.data.svc.cluster.local:8000"
+              value: "http://vllm-service.data.svc.cluster.local:8000/v1"
 
             - name: VLLM_EMBED__BASE_URL
-              value: "http://vllm-service.data.svc.cluster.local:8001"
+              value: "http://vllm-service.data.svc.cluster.local:8001/v1"
           ports:
             - containerPort: 8080
 
@@ -125,7 +125,7 @@ spec:
             - name: PG_PORT
               value: "5432"
             - name: PG_DATABASE
-              value: "chatbot"
+              value: "kakamu"
             - name: PG_USER
               value: "kakamu"
 
@@ -136,8 +136,8 @@ spec:
                   key: password
 
             - name: VLLM_GEN__BASE_URL
-              value: "http://vllm-service.data.svc.cluster.local:8000"
+              value: "http://vllm-service.data.svc.cluster.local:8000/v1"
 
             - name: VLLM_EMBED__BASE_URL
-              value: "http://vllm-service.data.svc.cluster.local:8001"
+              value: "http://vllm-service.data.svc.cluster.local:8001/v1"
 

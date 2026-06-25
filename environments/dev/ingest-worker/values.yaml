@@ -1,4 +1,0 @@
-image:
-  repository: topawa/movie-recommend-system-ingest-worker
-  tag: "1.4"
-  ifPullPolicy: IfNotPresent

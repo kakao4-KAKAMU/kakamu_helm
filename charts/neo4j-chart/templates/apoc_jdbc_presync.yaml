@@ -59,6 +59,20 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - |
+              set -euo pipefail
+
+              # Neo4j auth: 최초 설치 시에만 생성 (PV에 저장된 비밀번호 보존)
+              NEO4J_AUTH_SECRET="{{ include "neo4j-chart.neo4jAuthSecretName" . }}"
+              if ! kubectl get secret "${NEO4J_AUTH_SECRET}" -n {{ .Release.Namespace }} >/dev/null 2>&1; then
+                PASS="$(openssl rand -base64 32 | tr -dc 'a-zA-Z0-9' | head -c 14)"
+                kubectl create secret generic "${NEO4J_AUTH_SECRET}" \
+                  --from-literal=NEO4J_AUTH="neo4j/${PASS}" \
+                  -n {{ .Release.Namespace }}
+                echo "Created Neo4j auth secret ${NEO4J_AUTH_SECRET}"
+              else
+                echo "Neo4j auth secret ${NEO4J_AUTH_SECRET} already exists, preserving password"
+              fi
+
               PASS="$(kubectl get secret {{ .Values.postgresql.existingSecret }} -n {{ .Release.Namespace }} -o jsonpath='{.data.{{ .Values.postgresql.passwordKey }}}' | base64 -d)"
               JDBC_URL="jdbc:postgresql://{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.database }}?user={{ .Values.postgresql.user }}&password=${PASS}"
               kubectl create secret generic {{ .Values.postgresql.apocJdbcSecretName }} \

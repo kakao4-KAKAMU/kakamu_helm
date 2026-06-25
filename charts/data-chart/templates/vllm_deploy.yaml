@@ -25,7 +25,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: vllm
-          image: vllm/vllm-openai:latest
+          image: vllm/vllm-openai:v0.21.0
           env:
             - name: HF_TOKEN # 환경 변수 이름 확인 필요, 안되면 HUGGING_FACE_HUB_TOKEN 으로 변경
               valueFrom:
@@ -49,13 +49,11 @@ spec:
             - "--runner"
             - "generate"
             - "--max-model-len"
-            - "4096"
+            - "8192"
             - "--max-num-batched-tokens"
-            - "4096"
+            - "8192"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
             - "16"
-            - "--enable-chunked-prefill"
-            - "--enable-prefix-caching"
             - "--enforce-eager" # 안정화를 중시
             #- "--attention-backend" # 모델 백엔드 선택
             #- "FLASHINFER"
@@ -108,7 +106,7 @@ spec:
             failureThreshold: 100   # 100번 실패할 때까지 시도
             periodSeconds: 10 # 10초 마다 확인
         - name: vllm-embed
-          image: vllm/vllm-openai:latest
+          image: vllm/vllm-openai:v0.21.0
           env:
             - name: HF_TOKEN
               valueFrom:
@@ -117,7 +115,7 @@ spec:
                   key: readtoken
           args:
             - "--model"
-            - "BAAI/bge-m3"
+            - "Qwen/Qwen3-Embedding-0.6B"
             - "--download-dir"
             - "/data"
             - "--host"
@@ -128,8 +126,10 @@ spec:
             - "pooling"
             - "--convert"
             - "embed"
+            - "--max-model-len"
+            - "8192"
             - "--gpu-memory-utilization"
-            - "0.10"
+            - "0.20"
           ports:
             - containerPort: 8001
           resources:
