@@ -135,14 +135,8 @@ neo4j:
     server.bolt.advertised_address: ":7687"
     server.bolt.tls_level: "DISABLED"
 
-
-    # ------------ 테스트용 - logging 설정
-    db.logs.query.enabled: "INFO"
-    db.logs.query.threshold: "0ms"
-    db.logs.query.transaction.enabled: "VERBOSE"
-    db.logs.query.transaction.threshold: "0ms"
-    db.logs.query.parameter_logging_enabled: "true"
-    # ------------
+    server.bolt.thread_pool_max_size: "100"
+    server.bolt.thread_pool_keep_alive: "10m"
 
     dbms.security.procedures.unrestricted: "apoc.*,gds.*"
     dbms.security.procedures.allowlist: "apoc.*,gds.*"
