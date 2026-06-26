@@ -45,13 +45,13 @@ spec:
             - "--distributed-timeout-seconds"
             - "600"
             - "--gpu-memory-utilization"
-            - "0.70"
+            - "0.80"
             - "--runner"
             - "generate"
             - "--max-model-len"
-            - "10K"
+            - "9K"
             - "--max-num-batched-tokens"
-            - "10K"
+            - "9K"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
             - "16"
             - "--enforce-eager" # 안정화를 중시
