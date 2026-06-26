@@ -2,5 +2,5 @@ image:
   repository: topawa/filma-backend
   tag: "cb243ca"
   ifPullPolicy: IfNotPresent
-replicas: 1 # dev 환경 기본 pod 수
+replicas: 3 # dev 환경 기본 pod 수
 namespace: dev-back
