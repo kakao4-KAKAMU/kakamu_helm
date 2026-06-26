@@ -129,7 +129,7 @@ spec:
             - "--max-model-len"
             - "10K"
             - "--gpu-memory-utilization"
-            - "0.20"
+            - "0.25"
           ports:
             - containerPort: 8001
           resources:
