@@ -19,6 +19,7 @@ spec:
         - maxSkew: 1 # 최대 차이 1개
           topologyKey: kubernetes.io/hostname # 노드 이름을 기준
           whenUnsatisfiable: DoNotSchedule # 조건에 안 맞으면 배포 금지
+          nodeTaintsPolicy: Honor
           labelSelector:
             matchLabels:
               app: filma-back
