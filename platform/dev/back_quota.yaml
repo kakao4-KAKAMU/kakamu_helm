@@ -8,7 +8,7 @@ metadata:
 spec:
   hard:
     pods: "10" # 최대 10개 pod
-    requests.cpu: "1" # 0.5cpu
-    requests.memory: "1Gi" # 512Mi
+    requests.cpu: "3" # 0.5cpu
+    requests.memory: "4Gi" # 512Mi
     limits.cpu: "6" # 최대 6cpu
     limits.memory: "8Gi" # 최대 12Gi
