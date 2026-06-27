@@ -55,7 +55,7 @@ neo4j:
             readOnly: true
 
   env:
-    NEO4J_PLUGINS: '["apoc-extended", "graph-data-science"]'
+    NEO4J_PLUGINS: '["apoc", "apoc-extended", "graph-data-science"]'
 
   # 플러그인 설치·JVM 기동 시간 고려 (기본 tcp:7687 프로브는 기동 전 실패 가능)
   startupProbe:
