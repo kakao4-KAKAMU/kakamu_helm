@@ -39,19 +39,19 @@ spec:
             - "--download-dir"
             - "/data"
             - "--gpu-memory-utilization"
-            - "0.75"
+            - "0.6"
             - "--runner"
             - "generate"
             - "--max-model-len"
             - "9K"
             - "--max-num-batched-tokens"
-            - "4K"
+            - "2K"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
             - "10"
             - "--enable-prefix-caching"
-            # - "--enable-auto-tool-choice"
-            # - "--tool-call-parser"
-            # - "hermes"
+            - "--enable-auto-tool-choice"
+            - "--tool-call-parser"
+            - "hermes"
             - "--enforce-eager" # 안정화를 중시
             #- "--attention-backend" # 모델 백엔드 선택
             #- "FLASHINFER"
@@ -89,14 +89,14 @@ spec:
             httpGet:
               path: /health
               port: 8000
-            initialDelaySeconds: 300
-            periodSeconds: 30
+            initialDelaySeconds: 600
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /health
               port: 8000
-            initialDelaySeconds: 300
-            periodSeconds: 30
+            initialDelaySeconds: 0
+            periodSeconds: 10
           startupProbe: # 시작 프로브
             httpGet:
               path: /health
@@ -140,14 +140,14 @@ spec:
             httpGet:
               path: /health
               port: 8001
-            initialDelaySeconds: 300
-            periodSeconds: 30
+            initialDelaySeconds: 600
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /health
               port: 8001
-            initialDelaySeconds: 300
-            periodSeconds: 30
+            initialDelaySeconds: 0
+            periodSeconds: 10
           startupProbe:
             httpGet:
               path: /health
