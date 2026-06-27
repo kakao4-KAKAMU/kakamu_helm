@@ -34,16 +34,10 @@ spec:
                   key: readtoken
           args:
             - "--model"
-            - "Qwen/Qwen3-8B-GGUF:Q4_K_M" # 사용할 모델 이름
-            - "--hf-config-path"
-            - "Qwen/Qwen3-8B"
-            - "--tokenizer"
-            - "Qwen/Qwen3-8B"
+            - "Qwen/Qwen3-8B-AWQ" # 사용할 모델 이름
             - "--trust-remote-code"
             - "--download-dir"
             - "/data"
-            - "--distributed-timeout-seconds"
-            - "600"
             - "--gpu-memory-utilization"
             - "0.80"
             - "--runner"
@@ -51,9 +45,10 @@ spec:
             - "--max-model-len"
             - "9K"
             - "--max-num-batched-tokens"
-            - "9K"
+            - "4K"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
-            - "16"
+            - "10"
+            - "--enable-prefix-caching"
             - "--enforce-eager" # 안정화를 중시
             #- "--attention-backend" # 모델 백엔드 선택
             #- "FLASHINFER"
