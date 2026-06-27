@@ -29,5 +29,5 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true  # 네임스페이스 자동 생성
-      - Replace=true          # 꼬인 리소스 무조건 덮어쓰기
+      # - Replace=true          # 꼬인 리소스 무조건 덮어쓰기
       - Validate=false        # 스키마 검증 생략 (속도 향상 및 에러 방지)
