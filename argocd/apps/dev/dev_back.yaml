@@ -18,6 +18,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: dev-back
+  ignoreDifferences: #
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas # Hpa가 변경하는 replica 는 무시
   syncPolicy:
     automated:
       prune: true
