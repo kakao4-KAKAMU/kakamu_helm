@@ -49,9 +49,9 @@ spec:
             - "--max-num-seqs" # 한 번에 16개 요청 처리
             - "10"
             - "--enable-prefix-caching"
-            - "--enable-auto-tool-choice"
-            - "--tool-call-parser"
-            - "hermes"
+            # - "--enable-auto-tool-choice"
+            # - "--tool-call-parser"
+            # - "hermes"
             - "--enforce-eager" # 안정화를 중시
             #- "--attention-backend" # 모델 백엔드 선택
             #- "FLASHINFER"
