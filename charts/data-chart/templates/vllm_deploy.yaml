@@ -39,7 +39,7 @@ spec:
             - "--download-dir"
             - "/data"
             - "--gpu-memory-utilization"
-            - "0.7"
+            - "0.6"
             - "--runner"
             - "generate"
             - "--max-model-len"
