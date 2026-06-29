@@ -126,7 +126,7 @@ spec:
             - "--convert"
             - "embed"
             - "--max-model-len"
-            - "18K"
+            - "10K"
             - "--gpu-memory-utilization"
             - "0.19"
           ports:
