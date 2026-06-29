@@ -47,7 +47,7 @@ spec:
             - "--max-num-batched-tokens"
             - "9K"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
-            - "10"
+            - "6"
             - "--enable-prefix-caching"
             - "--enable-auto-tool-choice"
             - "--tool-call-parser"
