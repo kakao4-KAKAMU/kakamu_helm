@@ -101,6 +101,7 @@ spec:
             httpGet:
               path: /health
               port: 8000
+            initialDelaySeconds: 60
             failureThreshold: 100   # 100번 실패할 때까지 시도
             periodSeconds: 10 # 10초 마다 확인
         - name: vllm-embed
@@ -127,7 +128,7 @@ spec:
             - "--max-model-len"
             - "20K"
             - "--gpu-memory-utilization"
-            - "0.15"
+            - "0.20"
           ports:
             - containerPort: 8001
           resources:
@@ -152,6 +153,7 @@ spec:
             httpGet:
               path: /health
               port: 8001
+            initialDelaySeconds: 60
             failureThreshold: 100
             periodSeconds: 10
       volumes:
