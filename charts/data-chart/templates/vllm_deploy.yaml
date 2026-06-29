@@ -43,7 +43,7 @@ spec:
             - "--runner"
             - "generate"
             - "--max-model-len"
-            - "20K"
+            - "18K"
             - "--max-num-batched-tokens"
             - "4K"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
@@ -126,7 +126,7 @@ spec:
             - "--convert"
             - "embed"
             - "--max-model-len"
-            - "20K"
+            - "18K"
             - "--gpu-memory-utilization"
             - "0.16"
           ports:
