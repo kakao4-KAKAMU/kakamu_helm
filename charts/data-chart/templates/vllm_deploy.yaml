@@ -45,7 +45,7 @@ spec:
             - "--max-model-len"
             - "18K"
             - "--max-num-batched-tokens"
-            - "4K"
+            - "10K"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
             - "10"
             - "--enable-prefix-caching"
