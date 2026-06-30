@@ -1,6 +1,6 @@
 image:
   repository: topawa/filma-backend
-  tag: "611222c"
+  tag: "498db42"
   ifPullPolicy: IfNotPresent
 replicas: 5 # dev 환경 기본 pod 수
 namespace: dev-back
