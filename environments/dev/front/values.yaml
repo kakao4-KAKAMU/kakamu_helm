@@ -1,4 +1,4 @@
 image:
   repository: topawa/filma-frontend-dev
-  tag: "1.64"
+  tag: "1.65"
   ifPullPolicy: IfNotPresent
