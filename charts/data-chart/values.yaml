@@ -15,6 +15,9 @@ postgresql:
       replicationPasswordKey: replication-password # replica 키
 
   primary:
+    extraEnvVars:
+      - name: POSTGRESQL_MAX_CONNECTIONS
+        value: "1000"
     nodeSelector:
       kubernetes.io/hostname: master1
     tolerations: # 컨트롤 플레인에 배치 하기 위한 톨러레이션

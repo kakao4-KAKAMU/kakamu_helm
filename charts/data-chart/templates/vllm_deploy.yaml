@@ -34,26 +34,24 @@ spec:
                   key: readtoken
           args:
             - "--model"
-            - "Qwen/Qwen3-8B-GGUF:Q4_K_M" # 사용할 모델 이름
-            - "--hf-config-path"
-            - "Qwen/Qwen3-8B"
-            - "--tokenizer"
-            - "Qwen/Qwen3-8B"
+            - "Qwen/Qwen3-8B-AWQ" # 사용할 모델 이름
             - "--trust-remote-code"
             - "--download-dir"
             - "/data"
-            - "--distributed-timeout-seconds"
-            - "600"
             - "--gpu-memory-utilization"
-            - "0.70"
+            - "0.7"
             - "--runner"
             - "generate"
             - "--max-model-len"
-            - "8192"
+            - "18K"
             - "--max-num-batched-tokens"
-            - "8192"
+            - "9K"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
-            - "16"
+            - "6"
+            - "--enable-prefix-caching"
+            - "--enable-auto-tool-choice"
+            - "--tool-call-parser"
+            - "hermes"
             - "--enforce-eager" # 안정화를 중시
             #- "--attention-backend" # 모델 백엔드 선택
             #- "FLASHINFER"
@@ -91,18 +89,19 @@ spec:
             httpGet:
               path: /health
               port: 8000
-            initialDelaySeconds: 300
-            periodSeconds: 30
+            initialDelaySeconds: 600
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /health
               port: 8000
-            initialDelaySeconds: 300
-            periodSeconds: 30
+            initialDelaySeconds: 0
+            periodSeconds: 10
           startupProbe: # 시작 프로브
             httpGet:
               path: /health
               port: 8000
+            initialDelaySeconds: 60
             failureThreshold: 100   # 100번 실패할 때까지 시도
             periodSeconds: 10 # 10초 마다 확인
         - name: vllm-embed
@@ -127,7 +126,7 @@ spec:
             - "--convert"
             - "embed"
             - "--max-model-len"
-            - "8192"
+            - "10K"
             - "--gpu-memory-utilization"
             - "0.20"
           ports:
@@ -142,18 +141,19 @@ spec:
             httpGet:
               path: /health
               port: 8001
-            initialDelaySeconds: 300
-            periodSeconds: 30
+            initialDelaySeconds: 600
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /health
               port: 8001
-            initialDelaySeconds: 300
-            periodSeconds: 30
+            initialDelaySeconds: 0
+            periodSeconds: 10
           startupProbe:
             httpGet:
               path: /health
               port: 8001
+            initialDelaySeconds: 60
             failureThreshold: 100
             periodSeconds: 10
       volumes:
