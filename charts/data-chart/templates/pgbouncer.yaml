@@ -21,7 +21,7 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       {{- with .Values.pgbouncer.nodeSelector }}
-      nodeSelector: 
+      nodeSelector:
 {{ toYaml . | indent 8 }}
       {{- end }}
       {{- with .Values.pgbouncer.tolerations }}
@@ -36,59 +36,65 @@ spec:
             - name: pgbouncer
               containerPort: {{ .Values.pgbouncer.port }}
           env:
-            - name: POSTGRESQL_HOST
+            - name: LISTEN_ADDR
+              value: {{ .Values.pgbouncer.listenAddr | quote }}
+            - name: LISTEN_PORT
+              value: {{ .Values.pgbouncer.port | quote }}
+            - name: DB_HOST
               value: {{ $pgHost | quote }}
-            - name: POSTGRESQL_PORT
+            - name: DB_PORT
               value: {{ .Values.pgbouncer.postgresql.port | quote }}
-            - name: POSTGRESQL_USERNAME
+            - name: DB_USER
               value: {{ $auth.username | quote }}
-            - name: POSTGRESQL_DATABASE
+            - name: DB_NAME
               value: {{ $auth.database | quote }}
-            - name: PGBOUNCER_DATABASE
-              value: {{ $auth.database | quote }}
-            - name: POSTGRESQL_PASSWORD
+            - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ $auth.existingSecret }}
                   key: {{ $auth.secretKeys.userPasswordKey }}
-            - name: PGBOUNCER_PORT
-              value: {{ .Values.pgbouncer.port | quote }}
-            - name: PGBOUNCER_POOL_MODE
+            - name: AUTH_TYPE
+              value: {{ .Values.pgbouncer.authType | quote }}
+            - name: POOL_MODE
               value: {{ .Values.pgbouncer.poolMode | quote }}
+            {{- with .Values.pgbouncer.serverResetQuery }}
+            - name: SERVER_RESET_QUERY
+              value: {{ . | quote }}
+            {{- end }}
             {{- with .Values.pgbouncer.maxClientConn }}
-            - name: PGBOUNCER_MAX_CLIENT_CONN
+            - name: MAX_CLIENT_CONN
               value: {{ . | quote }}
             {{- end }}
             {{- with .Values.pgbouncer.defaultPoolSize }}
-            - name: PGBOUNCER_DEFAULT_POOL_SIZE
+            - name: DEFAULT_POOL_SIZE
               value: {{ . | quote }}
             {{- end }}
             {{- with .Values.pgbouncer.minPoolSize }}
-            - name: PGBOUNCER_MIN_POOL_SIZE
+            - name: MIN_POOL_SIZE
               value: {{ . | quote }}
             {{- end }}
             {{- with .Values.pgbouncer.reservePoolSize }}
-            - name: PGBOUNCER_RESERVE_POOL_SIZE
+            - name: RESERVE_POOL_SIZE
               value: {{ . | quote }}
             {{- end }}
             {{- with .Values.pgbouncer.reservePoolTimeout }}
-            - name: PGBOUNCER_RESERVE_POOL_TIMEOUT
+            - name: RESERVE_POOL_TIMEOUT
               value: {{ . | quote }}
             {{- end }}
             {{- with .Values.pgbouncer.maxDbConnections }}
-            - name: PGBOUNCER_MAX_DB_CONNECTIONS
+            - name: MAX_DB_CONNECTIONS
               value: {{ . | quote }}
             {{- end }}
             {{- with .Values.pgbouncer.serverIdleTimeout }}
-            - name: PGBOUNCER_SERVER_IDLE_TIMEOUT
+            - name: SERVER_IDLE_TIMEOUT
               value: {{ . | quote }}
             {{- end }}
             {{- with .Values.pgbouncer.serverLifetime }}
-            - name: PGBOUNCER_SERVER_LIFETIME
+            - name: SERVER_LIFETIME
               value: {{ . | quote }}
             {{- end }}
             {{- with .Values.pgbouncer.queryWaitTimeout }}
-            - name: PGBOUNCER_QUERY_WAIT_TIMEOUT
+            - name: QUERY_WAIT_TIMEOUT
               value: {{ . | quote }}
             {{- end }}
             {{- with .Values.pgbouncer.extraEnv }}
@@ -103,7 +109,15 @@ spec:
             tcpSocket:
               port: pgbouncer
             initialDelaySeconds: 30
-            periodSeconds: 20
+            periodSeconds: 60
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "killall -INT pgbouncer && sleep 120"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
           {{- with .Values.pgbouncer.resources }}
           resources:
 {{ toYaml . | indent 12 }}

@@ -1,17 +1,20 @@
 pgbouncer:
   enabled: true
   image:
-    registry: registry-1.docker.io
-    repository: bitnami/pgbouncer
+    registry: docker.io
+    repository: edoburu/pgbouncer
     tag: latest
     digest: ""
     pullPolicy: IfNotPresent
   replicaCount: 1
+  listenAddr: "0.0.0.0"
   port: 6432
   postgresql:
     host: "" # 비어 있으면 {release-name}-postgresql-primary 사용
     port: 5432
+  authType: scram-sha-256 # Bitnami PostgreSQL 기본 인증 방식
   poolMode: transaction
+  serverResetQuery: "DISCARD ALL"
   maxClientConn: 1500
   defaultPoolSize: 150
   minPoolSize: 80
