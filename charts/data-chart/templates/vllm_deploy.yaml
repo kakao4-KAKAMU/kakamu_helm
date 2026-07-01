@@ -39,15 +39,15 @@ spec:
             - "--download-dir"
             - "/data"
             - "--gpu-memory-utilization"
-            - "0.7"
+            - "0.75"
             - "--runner"
             - "generate"
             - "--max-model-len"
-            - "18K"
+            - "10K"
             - "--max-num-batched-tokens"
-            - "9K"
+            - "5K"
             - "--max-num-seqs" # 한 번에 16개 요청 처리
-            - "6"
+            - "10"
             - "--enable-prefix-caching"
             - "--enable-auto-tool-choice"
             - "--tool-call-parser"
@@ -126,9 +126,9 @@ spec:
             - "--convert"
             - "embed"
             - "--max-model-len"
-            - "10K"
+            - "5K"
             - "--gpu-memory-utilization"
-            - "0.20"
+            - "0.15"
           ports:
             - containerPort: 8001
           resources:
