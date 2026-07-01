@@ -1,3 +1,42 @@
+pgbouncer:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/pgbouncer
+    tag: latest
+    digest: ""
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  port: 6432
+  postgresql:
+    host: "" # 비어 있으면 {release-name}-postgresql-primary 사용
+    port: 5432
+  poolMode: transaction
+  maxClientConn: 1500
+  defaultPoolSize: 150
+  minPoolSize: 80
+  reservePoolSize: 100
+  reservePoolTimeout: 3
+  maxDbConnections: 180
+  serverIdleTimeout: 60
+  serverLifetime: 3600
+  queryWaitTimeout: 20
+
+  nodeSelector:
+    kubernetes.io/hostname: master1
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+  extraEnv: []
+
 postgresql:
   image:
     registry: docker.io
@@ -30,29 +69,36 @@ postgresql:
         matchLabels:
           role: primary
     extendedConfiguration: |
-      shared_buffers = 512MB
-      effective_cache_size = 1536MB
-      maintenance_work_mem = 8MB
-      work_mem = 8MB
-      max_connections = 5000
-      wal_buffers = 16MB
-      min_wal_size = 512MB
-      max_wal_size = 1GB
+      max_connections = 200
+      
+      shared_buffers = 5GB
+      effective_cache_size = 14GB
+      maintenance_work_mem = 2GB
+      work_mem = 16MB
+      wal_buffers = 64MB
+
+      min_wal_size = 2MB
+      max_wal_size = 8GB
       checkpoint_completion_target = 0.9
+      checkpoint_timeout = 15min
+
       random_page_cost = 1.1
       effective_io_concurrency = 1000
-      max_worker_processes = 250
-      max_parallel_workers_per_gather = 250
-      max_parallel_workers = 250
-      autovacuum_max_workers = 250
+
+      max_worker_processes = 32
+      max_parallel_workers = 16
+      max_parallel_workers_per_gather = 2
+      max_parallel_maintenance_workers = 4
+
+      autovacuum_max_workers = 6
       autovacuum_vacuum_threshold = 20
       autovacuum_naptime = 5s
       autovacuum_vacuum_cost_limit = 2000
-      autovacuum_vacuum_cost_delay = 20ms
-      idle_in_transaction_session_timeout = 30s
+
+      idle_in_transaction_session_timeout = 60s
       statement_timeout = 60s
       lock_timeout = 5s
-      deadlock_timeout = 1s
+      deadlock_timeout = 5s
       log_lock_waits = on
 
     resources: # 리소스 확인 후 조정 필요
