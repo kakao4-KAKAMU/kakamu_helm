@@ -32,7 +32,7 @@ postgresql:
     extendedConfiguration: |
       shared_buffers = 512MB
       effective_cache_size = 1536MB
-      maintenance_work_mem = 128MB
+      maintenance_work_mem = 4MB
       work_mem = 16MB
       max_connections = 500
       wal_buffers = 16MB
@@ -44,7 +44,7 @@ postgresql:
       max_worker_processes = 16
       max_parallel_workers_per_gather = 4
       max_parallel_workers = 8
-      autovacuum_max_workers = 20
+      autovacuum_max_workers = 600
       autovacuum_naptime = 20s
       autovacuum_vacuum_cost_limit = 400
       idle_in_transaction_session_timeout = 30s
