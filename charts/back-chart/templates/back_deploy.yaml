@@ -63,6 +63,12 @@ spec:
 
           - name: APP_ENV
             value: "dev"
+
+          - name: DISABLE_ACCESS_LOG
+            value: "true"
+          - name: LOG_LEVEL
+            value: "WARNING"
+
         volumeMounts:
           - name: firebase-key-volume
             mountPath: /app/auth
