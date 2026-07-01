@@ -21,12 +21,12 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       {{- with .Values.pgbouncer.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
+      nodeSelector: 
+        {{ toYaml . | indent 8 }}
       {{- end }}
       {{- with .Values.pgbouncer.tolerations }}
       tolerations:
-        {{- toYaml . | nindent 8 }}
+        {{ toYaml . | indent 8 }}
       {{- end }}
       containers:
         - name: pgbouncer
@@ -83,7 +83,7 @@ spec:
             - name: PGBOUNCER_SERVER_IDLE_TIMEOUT
               value: {{ . | quote }}
             {{- end }}
-            {{- with .Values.pgbouncer.serverLifeTime }}
+            {{- with .Values.pgbouncer.serverLifetime }}
             - name: PGBOUNCER_SERVER_LIFETIME
               value: {{ . | quote }}
             {{- end }}
@@ -92,7 +92,7 @@ spec:
               value: {{ . | quote }}
             {{- end }}
             {{- with .Values.pgbouncer.extraEnv }}
-            {{- toYaml . | nindent 12 }}
+{{ toYaml . | indent 12 }}
             {{- end }}
           readinessProbe:
             tcpSocket:
@@ -106,7 +106,7 @@ spec:
             periodSeconds: 20
           {{- with .Values.pgbouncer.resources }}
           resources:
-            {{- toYaml . | nindent 12 }}
+{{ toYaml . | indent 12 }}
           {{- end }}
 ---
 apiVersion: v1
