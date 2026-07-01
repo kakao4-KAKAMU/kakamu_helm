@@ -32,6 +32,25 @@ postgresql:
       selector:
         matchLabels:
           role: primary
+    extendedConfiguration: |
+      shared_buffers = 512MB
+      effective_cache_size = 1536MB
+      maintenance_work_mem = 128MB
+      work_mem = 16MB
+      max_connections = 500
+      wal_buffers = 16MB
+      min_wal_size = 512MB
+      max_wal_size = 1GB
+      checkpoint_completion_target = 0.9
+      random_page_cost = 1.1
+      effective_io_concurrency = 200
+      max_worker_processes = 16
+      max_parallel_workers_per_gather = 4
+      max_parallel_workers = 8
+      autovacuum_max_workers = 4
+      autovacuum_naptime = 20s
+      idle_in_transaction_session_timeout = 30s
+      statement_timeout = 60s
 
     resources: # 리소스 확인 후 조정 필요
       requests:
