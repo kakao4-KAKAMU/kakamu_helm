@@ -7,7 +7,7 @@ containers:
   - name: api
     image:
       repository: topawa/movie-recommend-system-api
-      tag: "1.61"
+      tag: "1.62"
       pullPolicy: IfNotPresent
   - name: ingest-worker
     image:
