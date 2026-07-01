@@ -15,9 +15,6 @@ postgresql:
       replicationPasswordKey: replication-password # replica 키
 
   primary:
-    extraEnvVars:
-      - name: POSTGRESQL_MAX_CONNECTIONS
-        value: "1000"
     nodeSelector:
       kubernetes.io/hostname: master1
     tolerations: # 컨트롤 플레인에 배치 하기 위한 톨러레이션
@@ -49,8 +46,12 @@ postgresql:
       max_parallel_workers = 8
       autovacuum_max_workers = 4
       autovacuum_naptime = 20s
+      autovacuum_vacuum_cost_limit = 400
       idle_in_transaction_session_timeout = 30s
       statement_timeout = 60s
+      lock_timeout = 5s
+      deadlock_timeout = 1s
+      log_lock_waits = on
 
     resources: # 리소스 확인 후 조정 필요
       requests:
