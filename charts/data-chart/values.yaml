@@ -1,7 +1,6 @@
 pgbouncer:
   enabled: true
   image:
-    registry: docker.io
     repository: bitnami/pgbouncer
     tag: latest
     digest: ""
