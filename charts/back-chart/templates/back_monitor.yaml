@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: back-deploy-monitor
+  namespace: dev-back # prod 변경 필요
+  labels:
+    release: prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app: filma-back   # ← Pod 셀렉터 라벨 사용
+  endpoints:
+    - targetPort: 8000    # ← 포트 이름 없으니 번호로 직접 지정
+      path: /api/metrics
+      interval: 15s
