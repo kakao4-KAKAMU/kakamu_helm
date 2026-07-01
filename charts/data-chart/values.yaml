@@ -40,11 +40,11 @@ postgresql:
       max_wal_size = 1GB
       checkpoint_completion_target = 0.9
       random_page_cost = 1.1
-      effective_io_concurrency = 200
-      max_worker_processes = 64
-      max_parallel_workers_per_gather = 64
-      max_parallel_workers = 64
-      autovacuum_max_workers = 64
+      effective_io_concurrency = 1000
+      max_worker_processes = 250
+      max_parallel_workers_per_gather = 250
+      max_parallel_workers = 250
+      autovacuum_max_workers = 250
       autovacuum_vacuum_threshold = 20
       autovacuum_naptime = 5s
       autovacuum_vacuum_cost_limit = 2000
