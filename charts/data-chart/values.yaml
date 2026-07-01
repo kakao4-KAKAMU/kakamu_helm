@@ -34,7 +34,7 @@ postgresql:
       effective_cache_size = 1536MB
       maintenance_work_mem = 8MB
       work_mem = 8MB
-      max_connections = 500
+      max_connections = 5000
       wal_buffers = 16MB
       min_wal_size = 512MB
       max_wal_size = 1GB
