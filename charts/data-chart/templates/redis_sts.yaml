@@ -12,6 +12,12 @@ spec:
       labels:
         app: redis
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: master1
+      tolerations: # 컨트롤 플레인에 배치할 톨러레이션
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
       containers:
         - name: redis
           image: redis:7-alpine # 경량화 이미지
@@ -21,8 +27,8 @@ spec:
             name: redis
           resources: # 리소스 제한
             requests:
-              cpu: "100m"
-              memory: "100Mi"
-            limits:
               cpu: "250m"
-              memory: "500Mi"
+              memory: "1Gi"
+            limits:
+              cpu: "500m"
+              memory: "2Gi"
