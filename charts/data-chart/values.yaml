@@ -76,7 +76,7 @@ postgresql:
       work_mem = 16MB
       wal_buffers = 64MB
 
-      min_wal_size = 2MB
+      min_wal_size = 2GB
       max_wal_size = 8GB
       checkpoint_completion_target = 0.9
       checkpoint_timeout = 15min
