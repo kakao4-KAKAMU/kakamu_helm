@@ -22,11 +22,11 @@ spec:
     spec:
       {{- with .Values.pgbouncer.nodeSelector }}
       nodeSelector: 
-        {{ toYaml . | indent 8 }}
+{{ toYaml . | indent 8 }}
       {{- end }}
       {{- with .Values.pgbouncer.tolerations }}
       tolerations:
-        {{ toYaml . | indent 8 }}
+{{ toYaml . | indent 8 }}
       {{- end }}
       containers:
         - name: pgbouncer
