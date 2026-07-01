@@ -4,8 +4,8 @@ argocd:
 
 # data-chart postgresql 설정과 동일한 연결 정보
 postgresql:
-  host: kakamu-data-postgresql-primary.data.svc.cluster.local
-  port: 5432
+  host: kakamu-data-pgbouncer.data.svc.cluster.local
+  port: 6432
   user: kakamu
   database: kakamu
   existingSecret: postgresql-secret

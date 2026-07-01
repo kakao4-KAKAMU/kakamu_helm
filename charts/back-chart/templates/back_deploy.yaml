@@ -19,9 +19,9 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         env:
           - name: POSTGRES_SERVER # 데이터베이스 서비스 경로
-            value: "kakamu-data-postgresql-primary.data.svc.cluster.local"
+            value: "kakamu-data-pgbouncer.data.svc.cluster.local"
           - name: POSTGRES_PORT # 포트
-            value: "5432"
+            value: "6432"
           - name: POSTGRES_USER # db 유저명
             value: "kakamu"
           - name: POSTGRES_DB # 데이터베이스 이름
