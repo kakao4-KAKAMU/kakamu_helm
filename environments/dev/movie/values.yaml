@@ -7,10 +7,10 @@ containers:
   - name: api
     image:
       repository: topawa/movie-recommend-system-api
-      tag: "1.57"
+      tag: "1.62"
       pullPolicy: IfNotPresent
   - name: ingest-worker
     image:
       repository: topawa/movie-recommend-system-ingest-worker
-      tag: "1.41"
+      tag: "1.42"
       pullPolicy: IfNotPresent

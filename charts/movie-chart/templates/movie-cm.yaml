@@ -7,7 +7,7 @@ data:
   # vLLM Generation
   VLLM_GEN__API_KEY: "EMPTY"
   VLLM_GEN__MODEL_NAME: "Qwen/Qwen3-8B-AWQ"
-  VLLM_GEN__MAX_TOKENS: "5000"
+  VLLM_GEN__MAX_TOKENS: "2500"
   VLLM_GEN__TEMPERATURE: "0.6"
 
   # vLLM Embedding
