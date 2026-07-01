@@ -1,4 +1,4 @@
-apiVersion: v3
+apiVersion: v2
 name: kakamu-data
 description: Helm chart for Kakamu data service
 type: application
