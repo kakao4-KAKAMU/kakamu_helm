@@ -72,7 +72,7 @@ postgresql:
         matchLabels:
           role: primary
     extendedConfiguration: |
-      max_connections = 200
+      max_connections = 700
       
       shared_buffers = 5GB
       effective_cache_size = 14GB
