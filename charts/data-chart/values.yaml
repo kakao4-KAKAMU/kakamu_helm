@@ -16,11 +16,11 @@ pgbouncer:
   poolMode: transaction
   serverResetQuery: "DISCARD ALL"
   maxClientConn: 1500
-  defaultPoolSize: 150
-  minPoolSize: 80
-  reservePoolSize: 100
+  defaultPoolSize: 250
+  minPoolSize: 200
+  reservePoolSize: 50
   reservePoolTimeout: 3
-  maxDbConnections: 180
+  maxDbConnections: 300
   serverIdleTimeout: 60
   serverLifetime: 3600
   queryWaitTimeout: 20
@@ -72,7 +72,7 @@ postgresql:
         matchLabels:
           role: primary
     extendedConfiguration: |
-      max_connections = 700
+      max_connections = 350
       
       shared_buffers = 5GB
       effective_cache_size = 14GB
