@@ -88,12 +88,12 @@ postgresql:
       random_page_cost = 1.1
       effective_io_concurrency = 1000
 
-      max_worker_processes = 32
-      max_parallel_workers = 16
-      max_parallel_workers_per_gather = 2
-      max_parallel_maintenance_workers = 4
+      max_worker_processes = 64
+      max_parallel_workers = 32
+      max_parallel_workers_per_gather = 4
+      max_parallel_maintenance_workers = 8
 
-      autovacuum_max_workers = 6
+      autovacuum_max_workers = 12
       autovacuum_vacuum_threshold = 20
       autovacuum_naptime = 5s
       autovacuum_vacuum_cost_limit = 2000
